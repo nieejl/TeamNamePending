@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
 
+    public string debugText;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +16,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        UpdatePlayerDirection();
+    }
+
+    private void OnGUI()
+    {
+        GUI.TextField(new Rect(0f, 0f, 100f, 200f), debugText);
     }
 
     public void Move()
@@ -27,10 +35,22 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.dKey.isPressed) movement.x += 1;
         
         movement.Normalize();
-        transform.Translate(movement * (MovementSpeed * deltaTime));
+        transform.
+        transform.Translate(movement * (MovementSpeed * deltaTime), Space.World);
     }
 
     public void UpdatePlayerDirection()
     {
+        var mouseScreenPosition = Mouse.current.position;
+        var mouseScreenVector3 = new Vector3(mouseScreenPosition.x.ReadValue(), mouseScreenPosition.y.ReadValue(), 0f);
+        var mouseWorldPosition = mouseScreenVector3.ToWorldPoint();
+
+        var playerPosition = transform.position;
+        var direction = (mouseWorldPosition - playerPosition);
+        direction.y = 0f;
+        var normalizedDirection = direction.normalized;
+        
+        debugText = mouseWorldPosition.ToString();
+        transform.LookAt(playerPosition + normalizedDirection * 10, Vector3.up);
     }
 }
