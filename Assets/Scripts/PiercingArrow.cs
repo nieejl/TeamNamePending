@@ -6,11 +6,16 @@ public class PiercingArrow : BaseProjectile
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
+
+    }
+
+    protected void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
-            if (piercedTargetsCounter == 0)
+            if (piercedTargetsCounter - 1 == 0)
             {
-                transform.SetParent(collision.transform);
+                transform.SetParent(collider.transform);
                 damageable.TakeDamage(projectileDamage);
                 Stop();
             }

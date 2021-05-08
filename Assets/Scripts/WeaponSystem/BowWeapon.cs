@@ -3,6 +3,7 @@ using UnityEngine;
 public class BowWeapon : BaseWeapon
 {
     public GameObject ProjectilePrefab;
+    public GameObject AlternateProjectilePrefab;
     public Transform FirePoint;
     public float LaunchForce = 500f;
 
@@ -30,14 +31,26 @@ public class BowWeapon : BaseWeapon
 
     public override void TryDoHeavyAttack()
     {
-        attackCounter += 2;
-        if (attackCounter >= AttacksToBreak)
+        if (!canBeUsed)
+            return;
+
+        if (FirePoint == null)
+            FirePoint = transform;
+
+        var projectileObject = Instantiate(AlternateProjectilePrefab, FirePoint);
+
+        projectileObject.transform.localPosition = Vector3.zero;
+        projectileObject.transform.localRotation = Quaternion.identity;
+        projectileObject.transform.parent = null;
+
+        projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
+
+        if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
             return;
         }
-
-        //do heavy animation
+        attackCounter++;
     }
 
     public override void TryDoLightAttack()
@@ -55,7 +68,7 @@ public class BowWeapon : BaseWeapon
         projectileObject.transform.parent = null;
 
         projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
-        //do light animation
+
         if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
