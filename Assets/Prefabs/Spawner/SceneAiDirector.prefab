@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4792812432662874589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4792812432662874579}
+  - component: {fileID: 4792812432662874588}
+  m_Layer: 0
+  m_Name: SceneAiDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4792812432662874579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792812432662874589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4792812432662874588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792812432662874589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77fc14c5e337524f92fab46f6233200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonstersAlive: 0
+  MinimumMonstersAlive: 20
+  MaximumMonstersAlive: 50
+  MonstersWaitingToSpawn: 0
+  EnemyPrefabs:
+  - {fileID: 5436872053528387912, guid: aaa45ac705481d448b5ee77b0994847e, type: 3}
+  - {fileID: 5436872053528387912, guid: 0f650babcc4a4864aad3e069eb98bf12, type: 3}
+  MinimumCashierTargetInterval: 8
+  MaximumCashierTargetInterval: 12
+  TimeLastSpawnedWithCashierTarget: 0
+  ChanceToFollowCashier: 0.2
+  SpawnInterval: 1
+  MaxRandomSpawnDelay: 0.5

@@ -342,10 +342,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   SwitchSettingsMigration: 1
-  HasSourceProject: 0
+  HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: 
-  sourceBankPath: 
+  sourceProjectPath: D:/Users/vikto/OneDrive/FMOD/TeamNamePendingFMOD/teamnamependingFMOD/teamnamependingFMODNew/teamnamependingFMODNew.fspro
+  sourceBankPath: D:/Users/vikto/OneDrive/FMOD/TeamNamePendingFMOD/teamnamependingFMOD/teamnamependingFMODNew/Build
   SourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -377,10 +377,10 @@ MonoBehaviour:
   StopEventsOutsideMaxDistance: 0
   BoltUnitOptionsBuildPending: 0
   EnableErrorCallback: 0
-  SharedLibraryUpdateStage: 3
-  SharedLibraryTimeSinceStart: 4139.6453299
+  SharedLibraryUpdateStage: 0
+  SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131584
-  HideSetupWizard: 0
+  HideSetupWizard: 1
   LastEventReferenceScanVersion: 0
   Platforms:
   - {fileID: 3907235722083874183}

@@ -16,11 +16,12 @@ public class StaffProjectile : BaseProjectile
     {
         transform.SetParent(collision.transform);
 
-        foreach (var nearbyObjects in Physics.OverlapSphere(collision.GetContact(0).point, ExplosionRange))
+        foreach (var nearbyObjects in Physics.OverlapSphere(collision.GetContact(0).point, ExplosionRange)) 
             if (nearbyObjects.gameObject.TryGetComponent<IDamageable>(out var damageable))
-            {
-                damageable.TakeDamage(projectileDamage);
+            { 
+                damageable.TakeDamage(projectileDamage); 
             }
+
         Stop();
     }
 

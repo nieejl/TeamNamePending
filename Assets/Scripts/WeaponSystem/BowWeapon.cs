@@ -54,7 +54,7 @@ public class BowWeapon : BaseWeapon
         projectileObject.transform.parent = null;
 
         projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
-
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Bow/bowShootEvent");
         if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
@@ -68,6 +68,8 @@ public class BowWeapon : BaseWeapon
         canBeUsed = false;
         wholeMesh.gameObject.SetActive(false);
         brokenMesh.gameObject.SetActive(true);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Bow/bowBreakEvent");
+
     }
 
     public override void RepairWeapon()
@@ -76,5 +78,6 @@ public class BowWeapon : BaseWeapon
         attackCounter = 0;
         wholeMesh.gameObject.SetActive(true);
         brokenMesh.gameObject.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Bow (BowWeapon)EquipEvent");
     }
 }
