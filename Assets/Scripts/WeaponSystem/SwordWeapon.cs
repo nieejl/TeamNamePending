@@ -34,6 +34,7 @@ public class SwordWeapon : BaseWeapon
 
     public override void TryDoHeavyAttack()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Sword/swordSwingEvent");
         if (!canBeUsed || isAnimating)
             return;
         animator.SetTrigger("HeavyAttack");
@@ -49,6 +50,7 @@ public class SwordWeapon : BaseWeapon
 
     public override void TryDoLightAttack()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Sword/swordSwingEvent");
         if (!canBeUsed || isAnimating)
             return;
 
@@ -67,6 +69,7 @@ public class SwordWeapon : BaseWeapon
     {
         foreach (var damageable in damageArea.GetDamageables())
             damageable.TakeDamage(Damage * multiplier);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Sword/swordHitEvent");
     }
 
     public override void BreakWeapon()
@@ -83,6 +86,7 @@ public class SwordWeapon : BaseWeapon
         attackCounter = 0;
         wholeMesh.gameObject.SetActive(true);
         brokenMesh.gameObject.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Sword/swordEquipEvent");
     }
 
     private void OnCollisionEnter(Collision collision)
