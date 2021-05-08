@@ -5,6 +5,8 @@ using System;
 public class PlayerData : ScriptableObject
 {
     public int CurrentValue { get; private set; }
+    public int StartAmount { get { return _startAmount; } }
+    public int MaximumAmount { get { return _maximumAmount; } }
 
     public event Action<int> ChangedToValue;
     public event Action ValueReachedZero;
