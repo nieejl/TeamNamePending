@@ -6,11 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
+    [SerializeField] public float IsMoving;
+    FMOD.Studio.EventInstance footstepEvent;
     private Inventory inventory;
 
     private void Awake()
     {
         controls = new PlayerControls();
+        footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
+        footstepEvent.start();
+
         inventory = GetComponent<Inventory>();
 
         WireControls();
@@ -65,17 +70,19 @@ public class PlayerController : MonoBehaviour
         Move();
         UpdatePlayerDirection();
     }
+
        
     public void Move()
     {
         var deltaTime = Time.deltaTime;
         var movementInput = controls.Player.Movement.ReadValue<Vector2>();
+        IsMoving = movementInput.x == 0f && movementInput.y == 0f ? 0f : 1f;
         var movement = new Vector3()
         {
             x = movementInput.x,
             z = movementInput.y,
         }.normalized;
-
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("isMovingParam", IsMoving);
         transform.Translate(movement * (MovementSpeed * deltaTime), Space.World);
     }
 
