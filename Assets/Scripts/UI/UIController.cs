@@ -19,6 +19,12 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private TMP_Text _coinsText;
 
+    [Header("Timer")]
+    [SerializeField]
+    private Image _timer;
+    [SerializeField]
+    private TMP_Text _timerText;
+
     private void Awake()
     {
         InitializeHealthIcons();
@@ -26,6 +32,12 @@ public class UIController : MonoBehaviour
 
         InitializeCoinsAmount();
         _playerCoins.ChangedToValue += UpdatePlayerCoins;
+    }
+
+    private void Start()
+    {
+        PendingSystem.Instance.OnUpdateTimer += UpdateTimer;
+        PendingSystem.Instance.StartPendingTime(60.0f);
     }
 
     private void InitializeHealthIcons()
@@ -62,6 +74,12 @@ public class UIController : MonoBehaviour
     {
         _playerHealthData.ChangedToValue -= UpdateHealthIcons;
         _playerCoins.ChangedToValue -= UpdatePlayerCoins;
+    }
+
+    private void UpdateTimer(float percentage, int seconds)
+    {
+        _timer.fillAmount = percentage;
+        _timerText.text = seconds.ToString();
     }
 
 }
