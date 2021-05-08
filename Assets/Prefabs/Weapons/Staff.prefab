@@ -216,9 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 2616473007939260632, guid: 3ce5853a714688f4b9c8a570b3c9052d, type: 3}
-  AlternateProjectilePrefab: {fileID: 0}
   FirePoint: {fileID: 5358161276688936069}
-  LaunchForce: 5000
+  LaunchForce: 500
   Damage: 10
   AttacksToBreak: 5
 --- !u!1 &5358161275223856179

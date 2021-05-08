@@ -49,7 +49,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 2616473007939260632, guid: c4c0579a90d51b4438499315ddaacff2, type: 3}
   AlternateProjectilePrefab: {fileID: 2616473007939260632, guid: 66762b61f19f449418e734df4203a3e2, type: 3}
   FirePoint: {fileID: 4438072936776943704}
-  LaunchForce: 5000
+  LaunchForce: 500
   Damage: 10
   AttacksToBreak: 5
 --- !u!1 &4438072936776943707
