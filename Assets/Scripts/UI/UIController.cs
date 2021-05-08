@@ -37,7 +37,6 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         PendingSystem.Instance.OnUpdateTimer += UpdateTimer;
-        PendingSystem.Instance.StartPendingTime(60.0f);
     }
 
     private void InitializeHealthIcons()
