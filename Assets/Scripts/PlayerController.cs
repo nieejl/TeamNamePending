@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
+    [SerializeField] public float IsMoving;
 
     private void Awake()
     {
@@ -28,11 +29,12 @@ public class PlayerController : MonoBehaviour
         Move();
         UpdatePlayerDirection();
     }
-    
+
     public void Move()
     {
         var deltaTime = Time.deltaTime;
         var movementInput = controls.Player.Movement.ReadValue<Vector2>();
+        IsMoving = movementInput.x == 0f && movementInput.y == 0f ? 0f : 1f;
         var movement = new Vector3()
         {
             x = movementInput.x,
