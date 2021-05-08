@@ -2,9 +2,17 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public static readonly PlayerHealth Instance = new PlayerHealth();
+    public static PlayerHealth Instance { get; private set; }
     [SerializeField]
     private PlayerData _playerHealthData;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     public void IncreaseHealth(int increaseValue)
     {
