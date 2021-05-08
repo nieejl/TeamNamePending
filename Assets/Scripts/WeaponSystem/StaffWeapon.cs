@@ -53,6 +53,7 @@ public class StaffWeapon : BaseWeapon
         projectileObject.transform.parent = null;
 
         projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffShootEvent");
         if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
@@ -66,6 +67,7 @@ public class StaffWeapon : BaseWeapon
         canBeUsed = false;
         wholeMesh.gameObject.SetActive(false);
         brokenMesh.gameObject.SetActive(true);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffBreakEvent");
     }
 
     public override void RepairWeapon()
@@ -74,5 +76,6 @@ public class StaffWeapon : BaseWeapon
         attackCounter = 0;
         wholeMesh.gameObject.SetActive(true);
         brokenMesh.gameObject.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Staff (StaffWeapon) EquipEvent");
     }
 }

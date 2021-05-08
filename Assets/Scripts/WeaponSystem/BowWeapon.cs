@@ -78,6 +78,6 @@ public class BowWeapon : BaseWeapon
         attackCounter = 0;
         wholeMesh.gameObject.SetActive(true);
         brokenMesh.gameObject.SetActive(false);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Bow/bowEquipEvent");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Bow (BowWeapon)EquipEvent");
     }
 }

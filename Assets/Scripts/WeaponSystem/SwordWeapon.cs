@@ -86,7 +86,7 @@ public class SwordWeapon : BaseWeapon
         attackCounter = 0;
         wholeMesh.gameObject.SetActive(true);
         brokenMesh.gameObject.SetActive(false);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Sword/swordEquipEvent");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Sword (SwordWeapon)EquipEvent");
     }
 
     private void OnCollisionEnter(Collision collision)

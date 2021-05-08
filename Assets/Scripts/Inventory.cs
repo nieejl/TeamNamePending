@@ -19,6 +19,8 @@ public class Inventory : MonoBehaviour
         currentWeapon?.gameObject.SetActive(false);
         currentWeapon = weapons[weaponIndex];
         weapons[weaponIndex].gameObject.SetActive(true);
+        Debug.Log(currentWeapon);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/"+currentWeapon+"EquipEvent");
     }
 
     public BaseWeapon GetEquippedWeapon()
