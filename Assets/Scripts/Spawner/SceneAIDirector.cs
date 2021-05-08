@@ -11,6 +11,7 @@ public class SceneAIDirector : MonoBehaviour
     public int MonstersAlive;
     public int MinimumMonstersAlive;
     public int MaximumMonstersAlive;
+    public int MonstersWaitingToSpawn;
     public float SpawningIntensity;
     public List<GameObject> EnemyPrefabs;
     public float MinimumCashierTargetInterval;
@@ -40,34 +41,47 @@ public class SceneAIDirector : MonoBehaviour
             Debug.Log("Max amount of monsters alive.");
             return;
         }
-        if (MonstersAlive <= MinimumMonstersAlive)
+        if (MonstersAlive + MonstersWaitingToSpawn <= MinimumMonstersAlive)
         {
-            int enemyIndex = Random.Range(0, EnemyPrefabs.Count);
+            int enemyTypeIndex = Random.Range(0, EnemyPrefabs.Count);
             var followBehaviour = DecideFollowBehaviour();
-            SpawnAtEmptiestPoint(EnemyPrefabs[enemyIndex].gameObject, followBehaviour);
+            Debug.Log("Spawning enemy. waiting to spawn: " + MonstersWaitingToSpawn + ", alive: " + MonstersAlive);
+            SpawnAtEmptiestPoint(EnemyPrefabs[enemyTypeIndex].gameObject, followBehaviour);
+        }
+        else
+        {
+            Debug.Log("not spawning");
         }
     }
 
     EnemyMover.FollowBehaviour DecideFollowBehaviour()
     {
-        if (TimeLastSpawnedWithCashierTarget + MinimumCashierTargetInterval > Time.realtimeSinceStartup)
+        if (TimeLastSpawnedWithCashierTarget - MaximumCashierTargetInterval > Time.realtimeSinceStartup)
         {
-            return EnemyMover.FollowBehaviour.FollowCashier;
-        }
-        if (TimeLastSpawnedWithCashierTarget + MaximumCashierTargetInterval > Time.realtimeSinceStartup)
-        {
-            return EnemyMover.FollowBehaviour.FollowPlayer;
-        }
-
-        var random = Random.Range(0f, 1f);
-
-        if (random < ChanceToFollowCashier)
-        {
+            Debug.Log("Follow cashier because max time > current time");
             TimeLastSpawnedWithCashierTarget = Time.realtimeSinceStartup;
             return EnemyMover.FollowBehaviour.FollowCashier;
         }
-
+        else if (TimeLastSpawnedWithCashierTarget + MinimumCashierTargetInterval > Time.realtimeSinceStartup)
+        {
+            var random = Random.Range(0f, 1f);
+            
+            if (random < ChanceToFollowCashier)
+            {
+                TimeLastSpawnedWithCashierTarget = Time.realtimeSinceStartup;
+                Debug.Log("Random follow cashier because spawn window is open.");
+                return EnemyMover.FollowBehaviour.FollowCashier;
+            }
+        }
+        
+        Debug.Log("Follow player");
         return EnemyMover.FollowBehaviour.FollowPlayer;
+        // if (TimeLastSpawnedWithCashierTarget + MaximumCashierTargetInterval > Time.realtimeSinceStartup)
+        // {
+        //     return EnemyMover.FollowBehaviour.FollowPlayer;
+        // }
+        //
+        // return EnemyMover.FollowBehaviour.FollowPlayer;
     }
 
     public void SpawnAtEmptiestPoint(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
