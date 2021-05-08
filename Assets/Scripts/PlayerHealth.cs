@@ -14,13 +14,8 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void IncreaseHealth(int increaseValue)
+    public void ChangeHealth(int changeValue)
     {
-        _playerHealthData.IncreaseValue(increaseValue);
-    }
-
-    public void DecreaseHealth(int decreaseValue)
-    {
-        _playerHealthData.DecreaseValue(decreaseValue);
+        _playerHealthData.ChangeValue(changeValue);
     }
 }
