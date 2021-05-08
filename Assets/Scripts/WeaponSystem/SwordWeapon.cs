@@ -4,7 +4,7 @@ public class SwordWeapon : Weapon
 {
     public new float Damage = 10f;
     public new int AttacksToBreak = 5;
-    
+
     private int attackCounter = 0;
 
     private Transform wholeMesh;
@@ -60,9 +60,9 @@ public class SwordWeapon : Weapon
         brokenMesh.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.TryGetComponent<IDamageable>(out var damageable))
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
             damageable.TakeDamage(Damage);
     }
 }
