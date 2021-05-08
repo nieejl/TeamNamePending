@@ -7,10 +7,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
     [SerializeField] public float IsMoving;
+    FMOD.Studio.EventInstance footstepEvent;
 
     private void Awake()
     {
         controls = new PlayerControls();
+        footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
+        footstepEvent.start();
+
     }
 
     private void OnEnable()
@@ -40,7 +44,7 @@ public class PlayerController : MonoBehaviour
             x = movementInput.x,
             z = movementInput.y,
         }.normalized;
-
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("isMovingParam", IsMoving);
         transform.Translate(movement * (MovementSpeed * deltaTime), Space.World);
     }
 

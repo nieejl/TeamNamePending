@@ -74,6 +74,7 @@ public class SwordWeapon : BaseWeapon
         canBeUsed = false;
         wholeMesh.gameObject.SetActive(false);
         brokenMesh.gameObject.SetActive(true);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Sword/swordBreakEvent");
     }
 
     public override void RepairWeapon()
