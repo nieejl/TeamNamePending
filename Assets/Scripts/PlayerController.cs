@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
         inventory = GetComponent<Inventory>();
 
+        footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
+        footstepEvent.start();
+
         WireControls();
     }
 
@@ -50,9 +53,6 @@ public class PlayerController : MonoBehaviour
     private void AlternateAttack_performed(InputAction.CallbackContext obj)
     {
         inventory.GetEquippedWeapon().TryDoHeavyAttack();
-        footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
-        footstepEvent.start();
-
     }
 
     private void OnEnable()
