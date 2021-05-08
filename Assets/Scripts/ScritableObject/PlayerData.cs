@@ -5,6 +5,8 @@ using System;
 public class PlayerData : ScriptableObject
 {
     public int CurrentValue { get; private set; }
+    public int StartAmount { get { return _startAmount; } }
+    public int MaximumAmount { get { return _maximumAmount; } }
 
     public event Action<int> ChangedToValue;
     public event Action ValueReachedZero;
@@ -21,19 +23,14 @@ public class PlayerData : ScriptableObject
         _currentValue = _startAmount;
     }
 
-    public void IncreaseValue(int increaseValue)
+    public void ChangeValue(int changeValue)
     {
-        _currentValue += increaseValue;
+        _currentValue += changeValue;
         if (_currentValue >= _maximumAmount)
         {
             _currentValue = _maximumAmount;
         }
-        ChangedToValue?.Invoke(_currentValue);
-    }
 
-    public void DecreaseValue(int decreaseValue)
-    {
-        _currentValue -= decreaseValue;
         if (_currentValue <= 0)
         {
             _currentValue = 0;
