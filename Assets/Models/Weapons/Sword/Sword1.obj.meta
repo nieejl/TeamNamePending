@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: color0
-    second: {fileID: 2100000, guid: c55ae0ce457338441a8773ec99122eec, type: 2}
+    second: {fileID: 2100000, guid: 157f6675775853d4d8ea34b7a5dcf4da, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: color12
-    second: {fileID: 2100000, guid: 17e5fae7460a9e54a81139202251eda5, type: 2}
+    second: {fileID: 2100000, guid: a2be0b18fbff09749b78b0e116ef15fd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: color14
-    second: {fileID: 2100000, guid: 802fbe747aee70848a9bfc49ff28be54, type: 2}
+    second: {fileID: 2100000, guid: 0425efb8286178e49922d4153929bd71, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: color2
-    second: {fileID: 2100000, guid: 817ee72dd7343364fb49f6336914c5ef, type: 2}
+    second: {fileID: 2100000, guid: c9ed2f70a6d6f38449433010096f0f07, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -54,7 +54,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.034
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -105,7 +105,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.034
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
