@@ -37,12 +37,14 @@ public class SwordWeapon : BaseWeapon
         if (!canBeUsed || isAnimating)
             return;
         animator.SetTrigger("HeavyAttack");
-        attackCounter += 2;
+        DealDamage(2);
+
         if (attackCounter >= AttacksToBreak)
         {
             BreakWeapon();
             return;
         }
+        attackCounter += 2;
     }
 
     public override void TryDoLightAttack()
@@ -51,9 +53,7 @@ public class SwordWeapon : BaseWeapon
             return;
 
         animator.SetTrigger("LightAttack");
-
-        foreach (var damageable in damageArea.GetDamageables())
-            damageable.TakeDamage(Damage);
+        DealDamage();
 
         if (attackCounter + 1 >= AttacksToBreak)
         {
@@ -61,6 +61,12 @@ public class SwordWeapon : BaseWeapon
             return;
         }
         attackCounter++;
+    }
+
+    private void DealDamage(int multiplier = 1)
+    {
+        foreach (var damageable in damageArea.GetDamageables())
+            damageable.TakeDamage(Damage * multiplier);
     }
 
     public override void BreakWeapon()

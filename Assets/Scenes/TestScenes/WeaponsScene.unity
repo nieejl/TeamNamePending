@@ -19981,7 +19981,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127401675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60, y: 5, z: -27}
+  m_LocalPosition: {x: 60, y: 5, z: -30}
   m_LocalScale: {x: 1, y: 20, z: 8}
   m_Children: []
   m_Father: {fileID: 0}
@@ -20308,10 +20308,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3555127929067805642, guid: b15ccdfcc52a8504095d1e725aa7da1d, type: 3}
-      propertyPath: AlternateProjectilePrefab
-      value: 
-      objectReference: {fileID: 2616473007939260632, guid: 66762b61f19f449418e734df4203a3e2, type: 3}
     - target: {fileID: 3555127929067805645, guid: b15ccdfcc52a8504095d1e725aa7da1d, type: 3}
       propertyPath: m_Name
       value: Bow

@@ -31,29 +31,15 @@ public class BowWeapon : BaseWeapon
 
     public override void TryDoHeavyAttack()
     {
-        if (!canBeUsed)
-            return;
-
-        if (FirePoint == null)
-            FirePoint = transform;
-
-        var projectileObject = Instantiate(AlternateProjectilePrefab, FirePoint);
-
-        projectileObject.transform.localPosition = Vector3.zero;
-        projectileObject.transform.localRotation = Quaternion.identity;
-        projectileObject.transform.parent = null;
-
-        projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
-
-        if (attackCounter + 1 >= AttacksToBreak)
-        {
-            BreakWeapon();
-            return;
-        }
-        attackCounter++;
+        ShootProjectile(AlternateProjectilePrefab);
     }
 
     public override void TryDoLightAttack()
+    {
+        ShootProjectile(ProjectilePrefab);
+    }
+
+    private void ShootProjectile(GameObject projectile)
     {
         if (!canBeUsed)
             return;
@@ -61,7 +47,7 @@ public class BowWeapon : BaseWeapon
         if (FirePoint == null)
             FirePoint = transform;
 
-        var projectileObject = Instantiate(ProjectilePrefab, FirePoint);
+        var projectileObject = Instantiate(projectile, FirePoint);
 
         projectileObject.transform.localPosition = Vector3.zero;
         projectileObject.transform.localRotation = Quaternion.identity;
