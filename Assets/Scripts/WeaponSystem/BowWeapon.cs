@@ -55,6 +55,10 @@ public class BowWeapon : BaseWeapon
 
         projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
         FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Bow/bowShootEvent");
+
+        if (isEnemyWeapon)
+            return;
+
         if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
