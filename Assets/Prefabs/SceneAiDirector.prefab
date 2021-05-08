@@ -47,7 +47,6 @@ MonoBehaviour:
   MinimumMonstersAlive: 20
   MaximumMonstersAlive: 50
   MonstersWaitingToSpawn: 0
-  SpawningIntensity: 1
   EnemyPrefabs:
   - {fileID: 5436872053528387912, guid: aaa45ac705481d448b5ee77b0994847e, type: 3}
   - {fileID: 5436872053528387912, guid: 0f650babcc4a4864aad3e069eb98bf12, type: 3}
@@ -55,3 +54,5 @@ MonoBehaviour:
   MaximumCashierTargetInterval: 12
   TimeLastSpawnedWithCashierTarget: 0
   ChanceToFollowCashier: 0.2
+  SpawnInterval: 1
+  MaxRandomSpawnDelay: 0.5

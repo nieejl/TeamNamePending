@@ -10,22 +10,26 @@ public class SceneAIDirector : MonoBehaviour
 {
     public static SceneAIDirector Instance;
     
-    private List<SpawnPoint> _spawnPoints;
+    // used to keep track of how many monsters to spawn. Edited from outside     
     public int MonstersAlive;
-    public int MinimumMonstersAlive;
-    public int MaximumMonstersAlive;
     public int MonstersWaitingToSpawn;
-    public List<GameObject> EnemyPrefabs;
-    public float MinimumCashierTargetInterval;
-    public float MaximumCashierTargetInterval;
-    public float TimeLastSpawnedWithCashierTarget;
-    public float ChanceToFollowCashier;
-    public float SpawnInterval;
-    public float MaxRandomSpawnDelay;
+    
+    // 
+    [SerializeField] private int MinimumMonstersAlive;
+    [SerializeField] private int MaximumMonstersAlive;
+    [SerializeField] private List<GameObject> EnemyPrefabs;
+    [SerializeField] private float MinimumCashierTargetInterval;
+    [SerializeField] private float MaximumCashierTargetInterval;
+    [SerializeField] private float ChanceToTargetCashier;
+    [SerializeField] private float SpawnInterval;
+    [SerializeField] private float MaxRandomSpawnDelay;
 
+    // high value to spawn enemy with cashier target at start.
+    private float _timeLastSpawnedWithCashierTarget = 200f;
     private float _timeSinceLastSpawn;
     private float _nextSpawnDelay;
 
+    private List<SpawnPoint> _spawnPoints;
     private SpawnWindowManager _spawnWindowManager;
 
     public SceneAIDirector()
@@ -33,7 +37,6 @@ public class SceneAIDirector : MonoBehaviour
         Instance = this;
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         _spawnPoints = FindObjectsOfType<SpawnPoint>().ToList();
@@ -50,6 +53,8 @@ public class SceneAIDirector : MonoBehaviour
         _spawnWindowManager = new SpawnWindowManager(new List<(float time, SpawnWindowStats stats)>()
         {
             (0f, spawnWindowStats),
+            // so to add new spawn window stats, just add as below.
+            // (60f, spawnWindowStats),
         });
     }
 
@@ -57,6 +62,7 @@ public class SceneAIDirector : MonoBehaviour
     void Update()
     {
         _timeSinceLastSpawn += Time.deltaTime;
+        _timeLastSpawnedWithCashierTarget += Time.deltaTime;
         if (MonstersAlive + MonstersWaitingToSpawn >= MaximumMonstersAlive)
         {
             return;
@@ -99,18 +105,19 @@ public class SceneAIDirector : MonoBehaviour
 
     private EnemyMover.FollowBehaviour DecideFollowBehaviour()
     {
-        if (TimeLastSpawnedWithCashierTarget - MaximumCashierTargetInterval > Time.realtimeSinceStartup)
+        if (_timeLastSpawnedWithCashierTarget > MaximumCashierTargetInterval)
         {
-            TimeLastSpawnedWithCashierTarget = Time.realtimeSinceStartup;
+            _timeLastSpawnedWithCashierTarget = 0f;
             return EnemyMover.FollowBehaviour.FollowCashier;
         }
-        if (TimeLastSpawnedWithCashierTarget + MinimumCashierTargetInterval > Time.realtimeSinceStartup)
+        if (_timeLastSpawnedWithCashierTarget > MinimumCashierTargetInterval
+            && _timeLastSpawnedWithCashierTarget < MaximumCashierTargetInterval)
         {
             var random = Random.Range(0f, 1f);
             
-            if (random < ChanceToFollowCashier)
+            if (random < ChanceToTargetCashier)
             {
-                TimeLastSpawnedWithCashierTarget = Time.realtimeSinceStartup;
+                _timeLastSpawnedWithCashierTarget = 0f;
                 return EnemyMover.FollowBehaviour.FollowCashier;
             }
         }
@@ -150,7 +157,8 @@ public class SceneAIDirector : MonoBehaviour
 
     public void SpawnSingleEnemy(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour, float spawnAfter)
     {
-        var spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Count)];
+        var activeSpawnPoints = _spawnPoints.Where((sp => sp.IsActive)).ToList();
+        var spawnPoint = activeSpawnPoints[Random.Range(0, activeSpawnPoints.Count)];
         
         spawnPoint.QueueEnemySpawn(enemyPrefab, followBehaviour, spawnAfter);
     }

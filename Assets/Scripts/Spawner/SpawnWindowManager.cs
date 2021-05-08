@@ -7,7 +7,7 @@ namespace Spawner
     {
         private List<(float time, SpawnWindowStats window)> _invervalIncreases;
         private SpawnWindowStats _current;
-        private int _currentIndex;
+        private int _currentIndex = 0;
 
         public SpawnWindowManager(List<(float time, SpawnWindowStats stats)> intervalIncreases)
         {
@@ -17,7 +17,7 @@ namespace Spawner
 
         public SpawnWindowStats GetCurrentSpawnWindowStats()
         {
-            if (_currentIndex < _invervalIncreases.Count && _invervalIncreases[_currentIndex].time <= Time.realtimeSinceStartup)
+            if (_currentIndex + 1 > _invervalIncreases.Count || _invervalIncreases[_currentIndex].time >= Time.realtimeSinceStartup)
             {
                 return _current;
             }

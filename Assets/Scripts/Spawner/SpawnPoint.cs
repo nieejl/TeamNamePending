@@ -16,7 +16,7 @@ public class SpawnPoint : MonoBehaviour
         SpawnQueue = new Queue<(GameObject, EnemyMover.FollowBehaviour)>();
     }
 
-    public void SpawnEnemy(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
+    private void SpawnEnemy(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
     {
         var enemy = Instantiate(enemyPrefab, _spawnPointTransform);
         var enemyMover = enemy.GetComponent<EnemyMover>();
@@ -28,6 +28,10 @@ public class SpawnPoint : MonoBehaviour
 
     public void QueueEnemySpawn(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour, float spawnAfter)
     {
+        if (!IsActive)
+        {
+            return;
+        }
         SpawnQueue.Enqueue((enemyPrefab, followBehaviour));
         SceneAIDirector.Instance.MonstersWaitingToSpawn += 1;
         _spawnNextAfter = spawnAfter;
@@ -36,6 +40,10 @@ public class SpawnPoint : MonoBehaviour
 
     private void Update()
     {
+        if (!IsActive)
+        {
+            return;
+        }
         _spawnNextAfter -= Time.deltaTime;
         if (SpawnQueue.Count > 0 && _spawnNextAfter < 0f)
         {
