@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 1
-  MinTimeBetweenSpawns: 0.5
+  SpawnInterval: 2

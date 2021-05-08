@@ -1,61 +1,47 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    public Transform SpawnPointTransform { get; private set; }
     public Queue<(GameObject prefab, EnemyMover.FollowBehaviour followBehaviour)> SpawnQueue;
     public bool IsActive;
-    public float MinTimeBetweenSpawns;
-    public float LastTimeSpawned { get; set; }
+    public bool TakesNewSpawnsOrders = true;
+    private float _spawnNextAfter;
+
+    private Transform _spawnPointTransform { get; set; }
 
     private void Awake()
     {
-        SpawnPointTransform = transform;
+        _spawnPointTransform = transform;
         SpawnQueue = new Queue<(GameObject, EnemyMover.FollowBehaviour)>();
-    }
-
-    public void SpawnInstant(GameObject enemyPrefab, bool updateLastTimeSpawned = true)
-    {
-        Instantiate(enemyPrefab);
-        if (updateLastTimeSpawned)
-        {
-            LastTimeSpawned = Time.realtimeSinceStartup;
-        }
     }
 
     public void SpawnEnemy(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
     {
-        Debug.Log("Spawned enemy");
-        LastTimeSpawned = Time.realtimeSinceStartup;
-        var enemy = Instantiate(enemyPrefab, SpawnPointTransform);
+        var enemy = Instantiate(enemyPrefab, _spawnPointTransform);
         var enemyMover = enemy.GetComponent<EnemyMover>();
         enemyMover.SetFollowBehaviour(followBehaviour);
+        
         SceneAIDirector.Instance.MonstersAlive += 1;
         SceneAIDirector.Instance.MonstersWaitingToSpawn -= 1;
     }
 
-    public void QueueEnemySpawn(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
+    public void QueueEnemySpawn(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour, float spawnAfter)
     {
         SpawnQueue.Enqueue((enemyPrefab, followBehaviour));
         SceneAIDirector.Instance.MonstersWaitingToSpawn += 1;
+        _spawnNextAfter = spawnAfter;
+        TakesNewSpawnsOrders = false;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (SpawnQueue.Count > 0 && LastTimeSpawned + MinTimeBetweenSpawns <= Time.realtimeSinceStartup)
+        _spawnNextAfter -= Time.deltaTime;
+        if (SpawnQueue.Count > 0 && _spawnNextAfter < 0f)
         {
             var spawnData = SpawnQueue.Dequeue();
             SpawnEnemy(spawnData.prefab, spawnData.followBehaviour);
+            TakesNewSpawnsOrders = true;
         }
     }
 }

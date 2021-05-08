@@ -44,13 +44,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MonstersAlive: 0
-  MinimumMonstersAlive: 5
-  MaximumMonstersAlive: 20
+  MinimumMonstersAlive: 20
+  MaximumMonstersAlive: 50
+  MonstersWaitingToSpawn: 0
   SpawningIntensity: 1
   EnemyPrefabs:
   - {fileID: 5436872053528387912, guid: aaa45ac705481d448b5ee77b0994847e, type: 3}
   - {fileID: 5436872053528387912, guid: 0f650babcc4a4864aad3e069eb98bf12, type: 3}
-  MinimumCashierTargetInterval: 10
-  MaximumCashierTargetInterval: 20
+  MinimumCashierTargetInterval: 8
+  MaximumCashierTargetInterval: 12
   TimeLastSpawnedWithCashierTarget: 0
   ChanceToFollowCashier: 0.2

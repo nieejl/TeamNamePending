@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Spawner;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SceneAIDirector : MonoBehaviour
 {
@@ -12,12 +15,18 @@ public class SceneAIDirector : MonoBehaviour
     public int MinimumMonstersAlive;
     public int MaximumMonstersAlive;
     public int MonstersWaitingToSpawn;
-    public float SpawningIntensity;
     public List<GameObject> EnemyPrefabs;
     public float MinimumCashierTargetInterval;
     public float MaximumCashierTargetInterval;
     public float TimeLastSpawnedWithCashierTarget;
     public float ChanceToFollowCashier;
+    public float SpawnInterval;
+    public float MaxRandomSpawnDelay;
+
+    private float _timeSinceLastSpawn;
+    private float _nextSpawnDelay;
+
+    private SpawnWindowManager _spawnWindowManager;
 
     public SceneAIDirector()
     {
@@ -31,79 +40,118 @@ public class SceneAIDirector : MonoBehaviour
         
         MovementController.Instance.SetTarget(Target.Player, GameObject.FindGameObjectWithTag("Player").transform);
         MovementController.Instance.SetTarget(Target.Cashier, GameObject.FindGameObjectWithTag("Cashier").transform);
+
+        var spawnWindowStats = new SpawnWindowStats()
+        {
+            RandomDelay = MaxRandomSpawnDelay,
+            ChanceToSpawnDouble = 0.1f,
+            MinimumTimeBetweenSpawns = SpawnInterval,
+        };
+        _spawnWindowManager = new SpawnWindowManager(new List<(float time, SpawnWindowStats stats)>()
+        {
+            (0f, spawnWindowStats),
+        });
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (MonstersAlive >= MaximumMonstersAlive)
+        _timeSinceLastSpawn += Time.deltaTime;
+        if (MonstersAlive + MonstersWaitingToSpawn >= MaximumMonstersAlive)
         {
-            Debug.Log("Max amount of monsters alive.");
             return;
         }
-        if (MonstersAlive + MonstersWaitingToSpawn <= MinimumMonstersAlive)
+
+        var stats = _spawnWindowManager.GetCurrentSpawnWindowStats();
+        bool spawnWindowIsOpen = _timeSinceLastSpawn > stats.MinimumTimeBetweenSpawns + _nextSpawnDelay;
+        
+        if (spawnWindowIsOpen)
         {
             int enemyTypeIndex = Random.Range(0, EnemyPrefabs.Count);
             var followBehaviour = DecideFollowBehaviour();
-            Debug.Log("Spawning enemy. waiting to spawn: " + MonstersWaitingToSpawn + ", alive: " + MonstersAlive);
-            SpawnAtEmptiestPoint(EnemyPrefabs[enemyTypeIndex].gameObject, followBehaviour);
-        }
-        else
-        {
-            Debug.Log("not spawning");
+            if (MonstersAlive + MonstersWaitingToSpawn < MaximumMonstersAlive)
+            {
+                SpawnSingleEnemy(EnemyPrefabs[enemyTypeIndex].gameObject, followBehaviour, _nextSpawnDelay);
+            }
+            else if (MonstersAlive + MonstersWaitingToSpawn < MinimumMonstersAlive)
+            {
+                SpawnEnemies(EnemyPrefabs[enemyTypeIndex], followBehaviour, 0f, 2);
+            }
+            else
+            {
+                bool shouldSpawnTwo = Random.Range(0, 1f) >= stats.ChanceToSpawnDouble;
+                if (shouldSpawnTwo)
+                {
+                    SpawnEnemies(EnemyPrefabs[enemyTypeIndex].gameObject, followBehaviour, _nextSpawnDelay, 2);
+                }
+                else
+                {
+                    SpawnSingleEnemy(EnemyPrefabs[enemyTypeIndex], followBehaviour, _nextSpawnDelay);
+                }
+            }
+
+            _timeSinceLastSpawn = 0f;
+            _nextSpawnDelay = _nextSpawnDelay = MonstersAlive + MonstersWaitingToSpawn <= MinimumMonstersAlive
+                ? 0f
+                : Random.Range(0f, stats.RandomDelay);
         }
     }
 
-    EnemyMover.FollowBehaviour DecideFollowBehaviour()
+    private EnemyMover.FollowBehaviour DecideFollowBehaviour()
     {
         if (TimeLastSpawnedWithCashierTarget - MaximumCashierTargetInterval > Time.realtimeSinceStartup)
         {
-            Debug.Log("Follow cashier because max time > current time");
             TimeLastSpawnedWithCashierTarget = Time.realtimeSinceStartup;
             return EnemyMover.FollowBehaviour.FollowCashier;
         }
-        else if (TimeLastSpawnedWithCashierTarget + MinimumCashierTargetInterval > Time.realtimeSinceStartup)
+        if (TimeLastSpawnedWithCashierTarget + MinimumCashierTargetInterval > Time.realtimeSinceStartup)
         {
             var random = Random.Range(0f, 1f);
             
             if (random < ChanceToFollowCashier)
             {
                 TimeLastSpawnedWithCashierTarget = Time.realtimeSinceStartup;
-                Debug.Log("Random follow cashier because spawn window is open.");
                 return EnemyMover.FollowBehaviour.FollowCashier;
             }
         }
         
-        Debug.Log("Follow player");
         return EnemyMover.FollowBehaviour.FollowPlayer;
-        // if (TimeLastSpawnedWithCashierTarget + MaximumCashierTargetInterval > Time.realtimeSinceStartup)
-        // {
-        //     return EnemyMover.FollowBehaviour.FollowPlayer;
-        // }
-        //
-        // return EnemyMover.FollowBehaviour.FollowPlayer;
     }
 
-    public void SpawnAtEmptiestPoint(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
+    public void SpawnEnemies(GameObject prefab, EnemyMover.FollowBehaviour followBehaviour, float spawnAfter, int count)
     {
-        var leastMonstersInQueue = _spawnPoints.OrderBy(sp => sp.SpawnQueue.Count);
-        var spawnPoint = leastMonstersInQueue.FirstOrDefault(sp => sp.IsActive);
-        if (spawnPoint == null)
+        if (count == 1)
         {
-            Debug.LogWarning("SceneAIDirector - No active spawn points. Cant spawn enemy");
+            SpawnSingleEnemy(prefab, followBehaviour, spawnAfter);
             return;
         }
+
+        var leastMonstersInQueue = _spawnPoints
+            .Where(sp => sp.TakesNewSpawnsOrders)
+            .OrderBy(sp => sp.SpawnQueue.Count)
+            .ToList();
+
+        if (count > leastMonstersInQueue.Count())
+        {
+            for (int i = 0; i < count; i++)
+            {
+                SpawnSingleEnemy(prefab, followBehaviour, spawnAfter);
+            }
+        }
+        else
+        {
+            var points = leastMonstersInQueue.Take(count);
+            foreach (var point in points)
+            {
+                point.QueueEnemySpawn(prefab, followBehaviour, spawnAfter);
+            }
+        }
+    }
+
+    public void SpawnSingleEnemy(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour, float spawnAfter)
+    {
+        var spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Count)];
         
-        spawnPoint.QueueEnemySpawn(enemyPrefab, followBehaviour);
-    }
-
-    private void SpawnAtPoint(GameObject prefab, SpawnPoint spawnPoint)
-    {
-        Instantiate(prefab, spawnPoint.SpawnPointTransform);
-    }
-
-    private void SetEnemyTarget(GameObject enemy, EnemyMover.FollowBehaviour followBehaviour)
-    {
-        enemy.GetComponent<EnemyMover>().SetFollowBehaviour(followBehaviour);
+        spawnPoint.QueueEnemySpawn(enemyPrefab, followBehaviour, spawnAfter);
     }
 }
