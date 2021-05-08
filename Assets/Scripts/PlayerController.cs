@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.SelectWeaponOne.performed += SelectWeaponOne_performed;
         controls.Player.SelectWeaponTwo.performed += SelectWeaponTwo_performed;
         controls.Player.SelectWeaponThree.performed += SelectWeaponThree_performed;
+        controls.Player.BuyWeapon.performed += TryBuyWeapon;
     }  
 
     private void SelectWeaponOne_performed(InputAction.CallbackContext obj)
@@ -53,6 +54,16 @@ public class PlayerController : MonoBehaviour
     private void AlternateAttack_performed(InputAction.CallbackContext obj)
     {
         inventory.GetEquippedWeapon().TryDoHeavyAttack();
+    }
+
+    private void TryBuyWeapon(InputAction.CallbackContext obj)
+    {
+        if (WeaponBuyController.Instance.IsPlayerWithinBuyRange)
+        {
+            Debug.Log("Purchased weapon");
+            // TODO Buy weapon system: should this time increase ?
+            PendingSystem.Instance.StartPendingTime(60f);
+        }
     }
 
     private void OnEnable()

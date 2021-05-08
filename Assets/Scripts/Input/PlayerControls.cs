@@ -65,6 +65,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""BuyWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""e014561d-8577-4491-aea9-4f7e7e2ae427"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -177,6 +185,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""SelectWeaponThree"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12d71805-eeb6-44bd-aa7b-7dd92887bc43"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuyWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -191,6 +210,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_SelectWeaponOne = m_Player.FindAction("SelectWeaponOne", throwIfNotFound: true);
         m_Player_SelectWeaponTwo = m_Player.FindAction("SelectWeaponTwo", throwIfNotFound: true);
         m_Player_SelectWeaponThree = m_Player.FindAction("SelectWeaponThree", throwIfNotFound: true);
+        m_Player_BuyWeapon = m_Player.FindAction("BuyWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -246,6 +266,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_SelectWeaponOne;
     private readonly InputAction m_Player_SelectWeaponTwo;
     private readonly InputAction m_Player_SelectWeaponThree;
+    private readonly InputAction m_Player_BuyWeapon;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -256,6 +277,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @SelectWeaponOne => m_Wrapper.m_Player_SelectWeaponOne;
         public InputAction @SelectWeaponTwo => m_Wrapper.m_Player_SelectWeaponTwo;
         public InputAction @SelectWeaponThree => m_Wrapper.m_Player_SelectWeaponThree;
+        public InputAction @BuyWeapon => m_Wrapper.m_Player_BuyWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +305,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @SelectWeaponThree.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeaponThree;
                 @SelectWeaponThree.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeaponThree;
                 @SelectWeaponThree.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectWeaponThree;
+                @BuyWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuyWeapon;
+                @BuyWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuyWeapon;
+                @BuyWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuyWeapon;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -305,6 +330,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @SelectWeaponThree.started += instance.OnSelectWeaponThree;
                 @SelectWeaponThree.performed += instance.OnSelectWeaponThree;
                 @SelectWeaponThree.canceled += instance.OnSelectWeaponThree;
+                @BuyWeapon.started += instance.OnBuyWeapon;
+                @BuyWeapon.performed += instance.OnBuyWeapon;
+                @BuyWeapon.canceled += instance.OnBuyWeapon;
             }
         }
     }
@@ -317,5 +345,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSelectWeaponOne(InputAction.CallbackContext context);
         void OnSelectWeaponTwo(InputAction.CallbackContext context);
         void OnSelectWeaponThree(InputAction.CallbackContext context);
+        void OnBuyWeapon(InputAction.CallbackContext context);
     }
 }
