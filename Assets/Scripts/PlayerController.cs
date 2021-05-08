@@ -6,16 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
+
+    private Inventory inventory;
     [SerializeField] public float IsMoving;
     FMOD.Studio.EventInstance footstepEvent;
-    private Inventory inventory;
 
     private void Awake()
     {
         controls = new PlayerControls();
-        footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
-        footstepEvent.start();
-
         inventory = GetComponent<Inventory>();
 
         WireControls();
@@ -52,6 +50,9 @@ public class PlayerController : MonoBehaviour
     private void AlternateAttack_performed(InputAction.CallbackContext obj)
     {
         inventory.GetEquippedWeapon().TryDoHeavyAttack();
+        footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
+        footstepEvent.start();
+
     }
 
     private void OnEnable()
@@ -71,7 +72,6 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerDirection();
     }
 
-       
     public void Move()
     {
         var deltaTime = Time.deltaTime;
