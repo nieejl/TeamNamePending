@@ -5,8 +5,25 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
+    private PlayerControls controls = null;
 
     public string debugText;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        controls.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Player.Disable();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +35,7 @@ public class PlayerController : MonoBehaviour
         Move();
         UpdatePlayerDirection();
     }
-
+    
     private void OnGUI()
     {
         GUI.TextField(new Rect(0f, 0f, 100f, 200f), debugText);
@@ -26,16 +43,14 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-        var movement = new Vector3();
         var deltaTime = Time.deltaTime;
+        var movementInput = controls.Player.Movement.ReadValue<Vector2>();
+        var movement = new Vector3()
+        {
+            x = movementInput.x,
+            z = movementInput.y,
+        }.normalized;
 
-        if (Keyboard.current.wKey.isPressed) movement.z += 1;
-        if (Keyboard.current.sKey.isPressed) movement.z -= 1;
-        if (Keyboard.current.aKey.isPressed) movement.x -= 1;
-        if (Keyboard.current.dKey.isPressed) movement.x += 1;
-        
-        movement.Normalize();
-        transform.
         transform.Translate(movement * (MovementSpeed * deltaTime), Space.World);
     }
 
