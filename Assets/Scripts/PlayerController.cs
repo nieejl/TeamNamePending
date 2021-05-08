@@ -7,8 +7,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
 
-    public string debugText;
-
     private void Awake()
     {
         controls = new PlayerControls();
@@ -24,11 +22,6 @@ public class PlayerController : MonoBehaviour
         controls.Player.Disable();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -36,11 +29,6 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerDirection();
     }
     
-    private void OnGUI()
-    {
-        GUI.TextField(new Rect(0f, 0f, 100f, 200f), debugText);
-    }
-
     public void Move()
     {
         var deltaTime = Time.deltaTime;
@@ -65,7 +53,6 @@ public class PlayerController : MonoBehaviour
         direction.y = 0f;
         var normalizedDirection = direction.normalized;
         
-        debugText = mouseWorldPosition.ToString();
         transform.LookAt(playerPosition + normalizedDirection * 10, Vector3.up);
     }
 }
