@@ -13,4 +13,11 @@ public static class Util
 
         return ray.GetPoint(distance);
     }
+
+    public static Vector3 ChangeDirectionRelativeToCamera(this Vector3 direction, Transform cameraTransform)
+    {
+        var relativeDirection = Camera.main.transform.TransformDirection(direction);
+        relativeDirection.y = 0;
+        return relativeDirection.normalized;
+    }
 }
