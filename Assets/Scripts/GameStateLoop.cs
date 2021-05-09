@@ -10,6 +10,7 @@ public class GameStateLoop : MonoBehaviour
     public float RestartGameDelay;
     [SerializeField] private PlayerData PlayerHealth;
     [SerializeField] private EventTriggerData SpawnerState;
+    private PlayerControls controls;
     
     public enum GameState : int
     {
@@ -30,6 +31,7 @@ public class GameStateLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controls = PlayerController.Instance.Controls;
     }
 
     // Update is called once per frame
@@ -60,14 +62,25 @@ public class GameStateLoop : MonoBehaviour
                 SpawnerState.IsActive = false;
                 if (Elapsed >= BackToMenuDelay)
                 {
-                    SetGameState(GameState.OnMenu);
+                    UIController.Instance.ShowRestartGameText();
+                    SetGameState(GameState.Restart);
                 }
                 break;
             case GameState.Restart:
                 if (Elapsed >= RestartGameDelay)
                 {
                     PlayerHealth.ResetValue();
-                    SceneManager.LoadScene("Game");
+                    UIController.Instance.HideRestartText();
+                    SceneManager.LoadScene("TitelScreen");
+                }
+                else
+                {
+                    if (controls.Player.RestartGame.triggered)
+                    {
+                        UIController.Instance.HideRestartText();
+                        PlayerHealth.ResetValue();
+                        SceneManager.LoadScene("Game");
+                    }
                 }
                 break;
             default:

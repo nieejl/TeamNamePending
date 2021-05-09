@@ -20,7 +20,7 @@ public class StaffWeapon : BaseWeapon
     private void Awake()
     {
         SetupMeshes();
-        AttacksToBreak = ItemDurability.AttacksTillDestroyd;
+        AttacksToBreak = ItemDurability.AttacksTillDestroyed;
     }
 
     private void SetupMeshes()

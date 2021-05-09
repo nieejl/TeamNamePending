@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu]
 public class ItemDurabilityData : ScriptableObject
 {
-    public int AttacksTillDestroyd { get; private set; }
+    public int AttacksTillDestroyed { get; private set; }
     
     private int _attacksTillDestroyed;
 
     public void SetValue(int attacks)
     {
-        AttacksTillDestroyd = attacks;
+        AttacksTillDestroyed = attacks;
     }
 }

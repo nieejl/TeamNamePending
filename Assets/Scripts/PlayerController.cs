@@ -3,8 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+    
     [SerializeField] public float MovementSpeed;
-    private PlayerControls controls = null;
+    public PlayerControls Controls = null;
     [SerializeField] private PlayerData PlayerCoins;
     private Quaternion _cameraRotation;
 
@@ -15,7 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        controls = new PlayerControls();
+        Instance = this;
+        Controls = new PlayerControls();
         inventory = GetComponent<Inventory>();
 
         footstepEvent = FMODUnity.RuntimeManager.CreateInstance("event:/VFX/Player/Footstep/footsteploopEvent");
@@ -28,12 +31,12 @@ public class PlayerController : MonoBehaviour
 
     private void WireControls()
     {
-        controls.Player.Attack.performed += Attack_performed;
-        controls.Player.AlternateAttack.performed += AlternateAttack_performed;
-        controls.Player.SelectWeaponOne.performed += SelectWeaponOne_performed;
-        controls.Player.SelectWeaponTwo.performed += SelectWeaponTwo_performed;
-        controls.Player.SelectWeaponThree.performed += SelectWeaponThree_performed;
-        controls.Player.BuyWeapon.performed += TryBuyWeapon;
+        Controls.Player.Attack.performed += Attack_performed;
+        Controls.Player.AlternateAttack.performed += AlternateAttack_performed;
+        Controls.Player.SelectWeaponOne.performed += SelectWeaponOne_performed;
+        Controls.Player.SelectWeaponTwo.performed += SelectWeaponTwo_performed;
+        Controls.Player.SelectWeaponThree.performed += SelectWeaponThree_performed;
+        Controls.Player.BuyWeapon.performed += TryBuyWeapon;
     }  
 
     private void SelectWeaponOne_performed(InputAction.CallbackContext obj)
@@ -77,12 +80,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.Player.Enable();
+        Controls.Player.Enable();
     }
 
     private void OnDisable()
     {
-        controls.Player.Disable();
+        Controls.Player.Disable();
     }
 
     // Update is called once per frame
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
     public void Move()
     {
         var deltaTime = Time.deltaTime;
-        var movementInput = controls.Player.Movement.ReadValue<Vector2>();
+        var movementInput = Controls.Player.Movement.ReadValue<Vector2>();
         IsMoving = movementInput.x == 0f && movementInput.y == 0f ? 0f : 1f;
         
         var movement = new Vector3()

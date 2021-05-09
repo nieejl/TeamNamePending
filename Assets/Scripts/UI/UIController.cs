@@ -30,8 +30,15 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Image[] _weaponIcons;
 
+    [SerializeField]
+    private TMP_Text RestartText;
+
+
+    public static UIController Instance;
+    
     private void Awake()
     {
+        Instance = this;
         InitializeHealthIcons();
         _playerHealthData.ChangedToValue += UpdateHealthIcons;
 
@@ -47,6 +54,16 @@ public class UIController : MonoBehaviour
 
         Inventory.OnWeaponChange += ChangeWeapon;
         ChangeWeapon(0);
+    }
+
+    public void ShowRestartGameText()
+    {
+        RestartText.text = "Press space to play again.";
+    }
+
+    public void HideRestartText()
+    {
+        RestartText.text = "";
     }
 
     private void InitializeHealthIcons()

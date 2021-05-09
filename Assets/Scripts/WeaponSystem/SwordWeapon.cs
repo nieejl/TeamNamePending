@@ -22,7 +22,7 @@ public class SwordWeapon : BaseWeapon
         SetupMeshes();
         animator = GetComponent<Animator>();
         damageArea = GetComponentInChildren<SwordDamageArea>();
-        AttacksToBreak = ItemDurability.AttacksTillDestroyd;
+        AttacksToBreak = ItemDurability.AttacksTillDestroyed;
     }
 
     private void SetupMeshes()

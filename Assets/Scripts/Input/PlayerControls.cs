@@ -73,6 +73,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""RestartGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""073d600b-ca52-4d88-96eb-5d290e721ee8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -196,6 +204,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""BuyWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad7ca4e3-0976-4f49-9322-a8d3581a47e2"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestartGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -211,6 +230,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_SelectWeaponTwo = m_Player.FindAction("SelectWeaponTwo", throwIfNotFound: true);
         m_Player_SelectWeaponThree = m_Player.FindAction("SelectWeaponThree", throwIfNotFound: true);
         m_Player_BuyWeapon = m_Player.FindAction("BuyWeapon", throwIfNotFound: true);
+        m_Player_RestartGame = m_Player.FindAction("RestartGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -267,6 +287,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_SelectWeaponTwo;
     private readonly InputAction m_Player_SelectWeaponThree;
     private readonly InputAction m_Player_BuyWeapon;
+    private readonly InputAction m_Player_RestartGame;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -278,6 +299,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @SelectWeaponTwo => m_Wrapper.m_Player_SelectWeaponTwo;
         public InputAction @SelectWeaponThree => m_Wrapper.m_Player_SelectWeaponThree;
         public InputAction @BuyWeapon => m_Wrapper.m_Player_BuyWeapon;
+        public InputAction @RestartGame => m_Wrapper.m_Player_RestartGame;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +330,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @BuyWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuyWeapon;
                 @BuyWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuyWeapon;
                 @BuyWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuyWeapon;
+                @RestartGame.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRestartGame;
+                @RestartGame.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRestartGame;
+                @RestartGame.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRestartGame;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -333,6 +358,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @BuyWeapon.started += instance.OnBuyWeapon;
                 @BuyWeapon.performed += instance.OnBuyWeapon;
                 @BuyWeapon.canceled += instance.OnBuyWeapon;
+                @RestartGame.started += instance.OnRestartGame;
+                @RestartGame.performed += instance.OnRestartGame;
+                @RestartGame.canceled += instance.OnRestartGame;
             }
         }
     }
@@ -346,5 +374,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSelectWeaponTwo(InputAction.CallbackContext context);
         void OnSelectWeaponThree(InputAction.CallbackContext context);
         void OnBuyWeapon(InputAction.CallbackContext context);
+        void OnRestartGame(InputAction.CallbackContext context);
     }
 }

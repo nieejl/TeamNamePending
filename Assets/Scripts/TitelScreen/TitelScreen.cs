@@ -53,7 +53,10 @@ public class TitelScreen : MonoBehaviour
         _sfxSlider.onValueChanged.AddListener(ChangeSFXVolume);
 
         _itemDurabilityLevelSlider.value = 0.25f;
-        DurabilityData.SetValue(25);
+        if (DurabilityData.AttacksTillDestroyed <= 1)
+        {
+            DurabilityData.SetValue(25);
+        }
         _itemDurabilityText.text = "Item Durability: 25";
         _itemDurabilityLevelSlider.onValueChanged.AddListener(ChangeDurabilityLevel);
 
