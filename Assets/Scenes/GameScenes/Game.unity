@@ -5189,7 +5189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3594611162852019242, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: isEnemyWeapon
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3594611162852019243, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_IsActive
@@ -5233,7 +5233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4918562236250764738, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: isEnemyWeapon
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4918562236250764738, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: AttacksToBreak
@@ -5273,7 +5273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7685030367135720703, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: isEnemyWeapon
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8199991200846824178, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_Enabled
