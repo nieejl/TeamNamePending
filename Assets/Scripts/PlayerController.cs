@@ -69,6 +69,8 @@ public class PlayerController : MonoBehaviour
                 PlayerCoins.ChangeValue(-10);
                 PendingSystem.Instance.StartPendingTime(60f);
                 inventory.GetEquippedWeapon().RepairWeapon();
+                FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Interactions/weaponPurchaseEvent");
+
             }
         }
     }

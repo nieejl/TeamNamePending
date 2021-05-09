@@ -73,6 +73,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 agent.isStopped = true;
                 agent.enabled = false;
                 mover.enabled = false;
+                FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Player/Dialogue/Enemies/enemyDeadEvent");
             }
             _componentsDisabled = true;
         }
@@ -89,6 +90,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             Debug.Log("Collision with player");
             if (!_isDying)
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Player/Dialogue/Enemies/enemyAttackEvent");
                 _isDying = true;
                 Die();
                 PlayerHealth.ChangeValue(-1);
