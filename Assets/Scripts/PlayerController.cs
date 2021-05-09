@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -60,9 +59,12 @@ public class PlayerController : MonoBehaviour
     {
         if (WeaponBuyController.Instance.IsPlayerWithinBuyRange)
         {
-            Debug.Log("Purchased weapon");
-            // TODO Buy weapon system: should this time increase ?
-            PendingSystem.Instance.StartPendingTime(60f);
+            if (!PendingSystem.Instance.IsPending())
+            {
+                // TODO Buy-weapon-system: we discussed this timer increasing. Could increase by eg. 2 every time.
+                PendingSystem.Instance.StartPendingTime(60f);
+                inventory.GetEquippedWeapon().RepairWeapon();
+            }
         }
     }
 
