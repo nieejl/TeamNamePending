@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 929045381479082463}
   - component: {fileID: 8199991200846824178}
   - component: {fileID: 3762829582859641596}
-  - component: {fileID: 6217226475741697922}
+  - component: {fileID: 1902437424193611388}
+  - component: {fileID: -6186671765347069449}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerHealthData: {fileID: 11400000, guid: 4e520288e4f8d2941af942753466d05b, type: 2}
   _playerCoinsData: {fileID: 11400000, guid: b667cfde387571244b46fb401a3e48f0, type: 2}
---- !u!54 &6217226475741697922
+--- !u!54 &1902437424193611388
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,13 +135,27 @@ Rigidbody:
   m_GameObject: {fileID: 929045381479082462}
   serializedVersion: 2
   m_Mass: 100
-  m_Drag: 0.05
-  m_AngularDrag: 0
-  m_UseGravity: 0
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!136 &-6186671765347069449
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929045381479082462}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.64
+  m_Height: 2.36
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.39, z: 0}
 --- !u!1001 &1538037048
 PrefabInstance:
   m_ObjectHideFlags: 0

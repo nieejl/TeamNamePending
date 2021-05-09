@@ -16,7 +16,8 @@ public class StaffProjectile : BaseProjectile
     {
         foreach (var nearbyObjects in Physics.OverlapSphere(collision.GetContact(0).point, ExplosionRange)) 
             if (nearbyObjects.gameObject.TryGetComponent<IDamageable>(out var damageable))
-            { 
+            {
+                Debug.Log("staff projectile dealing " + projectileDamage);
                 damageable.TakeDamage(projectileDamage);
                 FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffHitEvent");
             }

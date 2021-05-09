@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         CurrentHealth -= amount;
+        Debug.Log("Enemy taking damage. hp now " + CurrentHealth);
         if (CurrentHealth <= 0f && !_isDying)
         {
             DropSystem.Instance.CheckIfShouldSpawnDropItemAtPosition(transform.position + _spawnOffset);
@@ -92,6 +93,10 @@ public class EnemyController : MonoBehaviour, IDamageable
                 Die();
                 PlayerHealth.ChangeValue(-1);
             }
+        }
+        else
+        {
+            Debug.Log("collision with " + other.gameObject.tag);
         }
     }
 }
