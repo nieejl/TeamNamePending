@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
+    [SerializeField] private PlayerData PlayerCoins;
     private Quaternion _cameraRotation;
 
     private Inventory inventory;
@@ -61,9 +62,9 @@ public class PlayerController : MonoBehaviour
     {
         if (WeaponBuyController.Instance.IsPlayerWithinBuyRange)
         {
-            if (!PendingSystem.Instance.IsPending())
+            if (!PendingSystem.Instance.IsPending() && PlayerCoins.CurrentValue >= 10)
             {
-                // TODO Buy-weapon-system: we discussed this timer increasing. Could increase by eg. 2 every time.
+                PlayerCoins.ChangeValue(-10);
                 PendingSystem.Instance.StartPendingTime(60f);
                 inventory.GetEquippedWeapon().RepairWeapon();
             }

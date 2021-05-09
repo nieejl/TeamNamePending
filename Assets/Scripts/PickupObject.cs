@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupObject : MonoBehaviour
@@ -17,18 +15,16 @@ public class PickupObject : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            print ("Item picked up");
             switch(currentPickupType)
             {
                 case PickupType.Coin:
-
+                    PlayerDataController.Instance.ChangeCoins(1);
                     break;
 
                 case PickupType.Heart:
-
+                    PlayerDataController.Instance.ChangeHealth(1);
                     break;
             }
-
 
             Destroy(gameObject);
         }

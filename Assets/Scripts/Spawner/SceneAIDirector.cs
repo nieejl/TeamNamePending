@@ -13,8 +13,8 @@ public class SceneAIDirector : MonoBehaviour
     // used to keep track of how many monsters to spawn. Edited from outside     
     public int MonstersAlive;
     public int MonstersWaitingToSpawn;
-    
-    // 
+
+    [SerializeField] private EventTriggerData SpawnerState;
     [SerializeField] private int MinimumMonstersAlive;
     [SerializeField] private int MaximumMonstersAlive;
     [SerializeField] private List<GameObject> EnemyPrefabs;
@@ -40,10 +40,16 @@ public class SceneAIDirector : MonoBehaviour
     void Start()
     {
         _spawnPoints = FindObjectsOfType<SpawnPoint>().ToList();
-        
+        Reset();
+    }
+
+    public void Reset()
+    {
         MovementController.Instance.SetTarget(Target.Player, GameObject.FindGameObjectWithTag("Player").transform);
         MovementController.Instance.SetTarget(Target.Cashier, GameObject.FindGameObjectWithTag("Cashier").transform);
 
+        MonstersAlive = 0;
+        MonstersWaitingToSpawn = 0;
         var spawnWindowStats = new SpawnWindowStats()
         {
             RandomDelay = MaxRandomSpawnDelay,
@@ -56,11 +62,21 @@ public class SceneAIDirector : MonoBehaviour
             // so to add new spawn window stats, just add as below.
             // (60f, spawnWindowStats),
         });
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!SpawnerState.IsActive)
+        {
+            if (SpawnerState.ShouldReset)
+            {
+                Reset();
+                SpawnerState.ShouldReset = false;
+            }
+            return;
+        }
         _timeSinceLastSpawn += Time.deltaTime;
         _timeLastSpawnedWithCashierTarget += Time.deltaTime;
         if (MonstersAlive + MonstersWaitingToSpawn >= MaximumMonstersAlive)
