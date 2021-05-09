@@ -14,6 +14,8 @@ public class StaffProjectile : BaseProjectile
 
     protected override void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision from base projectile with " + collision.transform.tag);
+
         foreach (var nearbyObjects in Physics.OverlapSphere(collision.GetContact(0).point, ExplosionRange)) 
             if (nearbyObjects.gameObject.TryGetComponent<IDamageable>(out var damageable))
             {
