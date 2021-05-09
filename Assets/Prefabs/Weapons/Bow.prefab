@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4187655714452816247}
   - component: {fileID: 3555127929067805642}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b137c43c27abf894b89d86376b78cc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemyWeapon: 0
   ProjectilePrefab: {fileID: 2616473007939260632, guid: c4c0579a90d51b4438499315ddaacff2, type: 3}
   AlternateProjectilePrefab: {fileID: 2616473007939260632, guid: 66762b61f19f449418e734df4203a3e2, type: 3}
   FirePoint: {fileID: 4438072936776943704}
-  LaunchForce: 5000
+  LaunchForce: 500
   Damage: 10
   AttacksToBreak: 5
 --- !u!1 &4438072936776943707
@@ -76,7 +77,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4438072936776943707}
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -11, y: 0, z: 0.00000059604645}
+  m_LocalPosition: {x: -0.288, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4187655714452816247}

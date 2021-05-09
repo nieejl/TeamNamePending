@@ -5,6 +5,9 @@ public abstract class BaseWeapon : MonoBehaviour
     protected float Damage { get; set; }
     protected int AttacksToBreak { get; set; }
 
+    [SerializeField]
+    protected bool isEnemyWeapon = false;
+
     public virtual void TryDoLightAttack()
     {
 

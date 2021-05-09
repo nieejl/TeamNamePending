@@ -40,6 +40,9 @@ public class SwordWeapon : BaseWeapon
         animator.SetTrigger("HeavyAttack");
         DealDamage(2);
 
+        if (isEnemyWeapon)
+            return;
+
         if (attackCounter >= AttacksToBreak)
         {
             BreakWeapon();
@@ -47,6 +50,7 @@ public class SwordWeapon : BaseWeapon
         }
         attackCounter += 2;
     }
+
 
     public override void TryDoLightAttack()
     {
@@ -56,6 +60,9 @@ public class SwordWeapon : BaseWeapon
 
         animator.SetTrigger("LightAttack");
         DealDamage();
+
+        if (isEnemyWeapon)
+            return;
 
         if (attackCounter + 1 >= AttacksToBreak)
         {

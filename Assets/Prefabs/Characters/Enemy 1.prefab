@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -4258706506706474353}
   - component: {fileID: 372844805589831030}
   - component: {fileID: 6855359606939006703}
+  - component: {fileID: 7728051769500552333}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -148,3 +149,19 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   DeathFallThroughFloorSpeed: 0.8
+--- !u!54 &7728051769500552333
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5436872053528387912}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -54,6 +54,10 @@ public class StaffWeapon : BaseWeapon
 
         projectileObject.GetComponent<BaseProjectile>().Launch(FirePoint.forward * LaunchForce, Damage);
         FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffShootEvent");
+
+        if (isEnemyWeapon)
+            return;
+
         if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
