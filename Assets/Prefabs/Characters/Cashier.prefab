@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450652491458492}
   - component: {fileID: 919132148215414023}
+  - component: {fileID: 919132148215414024}
   m_Layer: 0
   m_Name: Snail
   m_TagString: Untagged
@@ -114,6 +115,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &919132148215414024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148215414022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3870004fb6ec58e48b87e5bb67d461b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1378482724319168058
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +266,6 @@ GameObject:
   - component: {fileID: 2574157844442379419}
   - component: {fileID: 1829303252550119944}
   - component: {fileID: 7124795954530166105}
-  - component: {fileID: 4636504616575927450}
   m_Layer: 0
   m_Name: Cashier
   m_TagString: Cashier
@@ -320,18 +332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CashierCollider: {fileID: 2574157844442379419}
   IsPlayerWithinBuyRange: 0
---- !u!114 &4636504616575927450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1902218468220321592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bcb1df5c2d6334596d61571032e02f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2873121185652659027
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,8 +542,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.575079, y: 1, z: 3.2515755}
+  m_Center: {x: -0.068725824, y: 0, z: -0.87578773}
 --- !u!1 &6036966480286544598
 GameObject:
   m_ObjectHideFlags: 0
