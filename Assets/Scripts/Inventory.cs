@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public static event Action<int> OnWeaponChange;
+
     [SerializeField]
     private List<BaseWeapon> weapons = new List<BaseWeapon>();
     private BaseWeapon currentWeapon;
@@ -19,6 +22,7 @@ public class Inventory : MonoBehaviour
         currentWeapon?.gameObject.SetActive(false);
         currentWeapon = weapons[weaponIndex];
         weapons[weaponIndex].gameObject.SetActive(true);
+        OnWeaponChange?.Invoke(weaponIndex);
         Debug.Log(currentWeapon);
         FMODUnity.RuntimeManager.PlayOneShot("event:/"+currentWeapon+"EquipEvent");
     }

@@ -27,6 +27,9 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private TMP_Text _timerText;
 
+    [SerializeField]
+    private Image[] _weaponIcons;
+
     private void Awake()
     {
         InitializeHealthIcons();
@@ -41,6 +44,9 @@ public class UIController : MonoBehaviour
         PendingSystem.Instance.OnUpdateTimer += UpdateTimer;
         PendingSystem.Instance.OnPendingTimeDone += () => { EnableTimerContainer(false); };
         EnableTimerContainer(false);
+
+        Inventory.OnWeaponChange += ChangeWeapon;
+        ChangeWeapon(0);
     }
 
     private void InitializeHealthIcons()
@@ -63,6 +69,15 @@ public class UIController : MonoBehaviour
         }
     }
 
+    private void ChangeWeapon(int weaponIndex)
+    {
+        int numberOfWeapons = _weaponIcons.Length;
+        for (int i = 0; i < numberOfWeapons; i++)
+        {
+            _weaponIcons[i].gameObject.SetActive(i == weaponIndex);
+        }
+    }
+
     private void InitializeCoinsAmount()
     {
         UpdatePlayerCoins(_playerCoins.StartAmount);
@@ -77,6 +92,8 @@ public class UIController : MonoBehaviour
     {
         _playerHealthData.ChangedToValue -= UpdateHealthIcons;
         _playerCoins.ChangedToValue -= UpdatePlayerCoins;
+
+        Inventory.OnWeaponChange -= ChangeWeapon;
     }
 
     private void UpdateTimer(float percentage, int seconds)
