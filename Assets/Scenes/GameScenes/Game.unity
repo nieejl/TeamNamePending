@@ -5485,6 +5485,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &919132148215414022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132148215414022, guid: 9f82cb8c280d27d48aa0259b9f3e233e, type: 3}
+  m_PrefabInstance: {fileID: 2103447240}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &919132148215414024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148215414022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3870004fb6ec58e48b87e5bb67d461b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1444965285382031854
 Transform:
   m_ObjectHideFlags: 0

@@ -28,10 +28,10 @@ public class PendingSystem : MonoBehaviour
 
     private void Update()
     {
-        if(_updateTime)
+        if (_updateTime)
         {
             _timeCounter += Time.deltaTime;
-            if(_timeCounter >= _updateFrequencyInSeconds)
+            if (_timeCounter >= _updateFrequencyInSeconds)
             {
                 _timeCounter = 0.0f;
                 UpdateTimer();
@@ -46,11 +46,13 @@ public class PendingSystem : MonoBehaviour
         _startDateTime = DateTime.Now;
         _updateTime = true;
         OnUpdateTimer?.Invoke(1.0f, (int)_totalTime);
+        SnailAnimator.Instance.ToggleCountingAnimation(true);
     }
 
     public void ResetPendingTime()
     {
-        if(IsPending())
+        SnailAnimator.Instance.PlayDamageAnimation();
+        if (IsPending())
         {
             _updateTime = false;
             _timeCounter = 0.0f;
@@ -68,6 +70,7 @@ public class PendingSystem : MonoBehaviour
         {
             _updateTime = false;
             OnPendingTimeDone?.Invoke();
+            SnailAnimator.Instance.ToggleCountingAnimation(false);
         }
     }
 }
