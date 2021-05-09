@@ -5,6 +5,7 @@ using System.Timers;
 public class PendingSystem : MonoBehaviour
 {
     public static PendingSystem Instance { get; private set; }
+    public bool IsPending() => _updateTime;
     public event Action<float, int> OnUpdateTimer; 
 
     [SerializeField]

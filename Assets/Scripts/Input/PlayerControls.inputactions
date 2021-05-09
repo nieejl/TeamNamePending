@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "BuyWeapon",
+                    "type": "Button",
+                    "id": "e014561d-8577-4491-aea9-4f7e7e2ae427",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -162,6 +170,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectWeaponThree",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12d71805-eeb6-44bd-aa7b-7dd92887bc43",
+                    "path": "<Keyboard>/r",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BuyWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
