@@ -47,6 +47,13 @@ public class PendingSystem : MonoBehaviour
         OnUpdateTimer?.Invoke(1.0f, (int)_totalTime);
     }
 
+    public void ResetPendingTime()
+    {
+        _updateTime = false;
+        _timeCounter = 0.0f;
+        StartPendingTime(_totalTime);
+    }
+
     private void UpdateTimer()
     {
         TimeSpan change = _timeSpanFromStart.Subtract(DateTime.Now - _startDateTime);
