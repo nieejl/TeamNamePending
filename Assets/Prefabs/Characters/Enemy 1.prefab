@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3419090608351265405}
   - component: {fileID: -4258706506706474353}
   - component: {fileID: 372844805589831030}
+  - component: {fileID: 6855359606939006703}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -132,3 +133,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentFollowBehaviour: 0
+--- !u!114 &6855359606939006703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5436872053528387912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aff960f0c3745d6b5ab6f0d94ae5bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  CurrentHealth: 0
+  DeathFallThroughFloorSpeed: 0.8

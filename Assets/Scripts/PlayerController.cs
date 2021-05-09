@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] public float MovementSpeed;
     private PlayerControls controls = null;
+    private Quaternion _cameraRotation;
 
     private Inventory inventory;
     [SerializeField] public float IsMoving;
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
         footstepEvent.start();
 
         WireControls();
+        _cameraRotation = Camera.main.transform.rotation;
     }
 
     private void WireControls()
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.SelectWeaponOne.performed += SelectWeaponOne_performed;
         controls.Player.SelectWeaponTwo.performed += SelectWeaponTwo_performed;
         controls.Player.SelectWeaponThree.performed += SelectWeaponThree_performed;
+        controls.Player.BuyWeapon.performed += TryBuyWeapon;
     }  
 
     private void SelectWeaponOne_performed(InputAction.CallbackContext obj)
@@ -55,6 +57,19 @@ public class PlayerController : MonoBehaviour
         inventory.GetEquippedWeapon().TryDoHeavyAttack();
     }
 
+    private void TryBuyWeapon(InputAction.CallbackContext obj)
+    {
+        if (WeaponBuyController.Instance.IsPlayerWithinBuyRange)
+        {
+            if (!PendingSystem.Instance.IsPending())
+            {
+                // TODO Buy-weapon-system: we discussed this timer increasing. Could increase by eg. 2 every time.
+                PendingSystem.Instance.StartPendingTime(60f);
+                inventory.GetEquippedWeapon().RepairWeapon();
+            }
+        }
+    }
+
     private void OnEnable()
     {
         controls.Player.Enable();
@@ -77,13 +92,15 @@ public class PlayerController : MonoBehaviour
         var deltaTime = Time.deltaTime;
         var movementInput = controls.Player.Movement.ReadValue<Vector2>();
         IsMoving = movementInput.x == 0f && movementInput.y == 0f ? 0f : 1f;
+        
         var movement = new Vector3()
         {
             x = movementInput.x,
             z = movementInput.y,
         }.normalized;
+        var cameraRelativeDirection = movement.ChangeDirectionRelativeToCamera(Camera.main.transform);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("isMovingParam", IsMoving);
-        transform.Translate(movement * (MovementSpeed * deltaTime), Space.World);
+        transform.Translate(cameraRelativeDirection * (MovementSpeed * deltaTime), Space.World);
     }
 
     public void UpdatePlayerDirection()
