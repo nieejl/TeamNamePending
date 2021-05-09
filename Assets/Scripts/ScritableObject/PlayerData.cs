@@ -4,7 +4,7 @@ using System;
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
 {
-    public int CurrentValue { get => _currentValue; private set => _currentValue = value; }
+    public int CurrentValue { get; private set; }
     public int StartAmount => _startAmount;
     public int MaximumAmount => _maximumAmount;
 
@@ -16,31 +16,32 @@ public class PlayerData : ScriptableObject
     [SerializeField]
     private int _maximumAmount;
 
-    private int _currentValue;
-
     private void OnEnable()
     {
-        _currentValue = _startAmount;
+        ResetValue();
     }
 
     public void ChangeValue(int changeValue)
     {
-        _currentValue += changeValue;
-        if (_currentValue >= _maximumAmount)
+        CurrentValue += changeValue;
+        if (CurrentValue >= _maximumAmount)
         {
-            _currentValue = _maximumAmount;
+            CurrentValue = _maximumAmount;
         }
 
-        if (_currentValue <= 0)
+        if (CurrentValue <= 0)
         {
-            _currentValue = 0;
+            CurrentValue = 0;
             ValueReachedZero?.Invoke();
         }
         else
         {
-            ChangedToValue?.Invoke(_currentValue);
+            ChangedToValue?.Invoke(CurrentValue);
         }
     }
-    
-    
+
+    public void ResetValue()
+    {
+        CurrentValue = _startAmount;
+    }
 }

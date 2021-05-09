@@ -66,7 +66,7 @@ public class GameStateLoop : MonoBehaviour
             case GameState.Restart:
                 if (Elapsed >= RestartGameDelay)
                 {
-                    PlayerHealth.ChangeValue(PlayerHealth.StartAmount - PlayerHealth.CurrentValue);
+                    PlayerHealth.ResetValue();
                     SceneManager.LoadScene("Game");
                 }
                 break;
