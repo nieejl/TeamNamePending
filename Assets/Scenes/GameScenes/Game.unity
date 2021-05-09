@@ -2763,6 +2763,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5685849297981069994, guid: 26ab766cd12fb3241945f87ff097333b, type: 3}
+      propertyPath: _coinDropRate
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26ab766cd12fb3241945f87ff097333b, type: 3}
 --- !u!1001 &606026217
@@ -5191,6 +5195,10 @@ PrefabInstance:
       propertyPath: isEnemyWeapon
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3594611162852019242, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
+      propertyPath: AttacksToBreak
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3594611162852019243, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5237,7 +5245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4918562236250764738, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: AttacksToBreak
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4918562236250764739, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_IsActive
@@ -5274,6 +5282,10 @@ PrefabInstance:
     - target: {fileID: 7685030367135720703, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: isEnemyWeapon
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685030367135720703, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
+      propertyPath: AttacksToBreak
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8199991200846824178, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_Enabled
