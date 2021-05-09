@@ -16,6 +16,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [SerializeField] public float DeathFallThroughFloorSpeed;
 
+    [SerializeField]
+    private Vector3 _spawnOffset;
+
     private void Awake()
     {
         CurrentHealth = MaxHealth;
@@ -26,6 +29,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         CurrentHealth -= amount;
         if (CurrentHealth <= 0f && !_isDying)
         {
+            DropSystem.Instance.CheckIfShouldSpawnDropItemAtPosition(transform.position + _spawnOffset);
             SceneAIDirector.Instance.MonstersAlive -= 1;
             _isDying = true;
         }
