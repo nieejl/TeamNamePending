@@ -35,6 +35,7 @@ public class DropSystem : MonoBehaviour
             {
                 Quaternion quaternion = Quaternion.Euler(0.0f, 180.0f, 0.0f);
                 Instantiate(_heartPrefab, position, quaternion);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Interactions/heartDropEvent");
             }
         }
         else
@@ -42,6 +43,7 @@ public class DropSystem : MonoBehaviour
             if (CheckIfShouldDrop(dropRandomValue, _coinDropRate))
             {
                 Instantiate(_coinPrefab, position, Quaternion.identity);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Interactions/coinDropEvent");
             }
         }
     }
