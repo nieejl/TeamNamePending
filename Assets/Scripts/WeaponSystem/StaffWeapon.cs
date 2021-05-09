@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class StaffWeapon : BaseWeapon
 {
     public GameObject ProjectilePrefab;
+    public GameObject AlernateProjectilePrefab;
     public Transform FirePoint;
     public float LaunchForce = 500f;
 
@@ -30,7 +32,19 @@ public class StaffWeapon : BaseWeapon
 
     public override void TryDoHeavyAttack()
     {
-        throw new System.NotImplementedException();
+        var mouseWorldPosition = GetMouseWorldPoint();
+        var projectileObject = Instantiate(AlernateProjectilePrefab, null);
+
+        projectileObject.transform.localPosition = mouseWorldPosition + Vector3.up * 15f;
+        projectileObject.transform.localRotation = Quaternion.identity;
+        projectileObject.GetComponent<BaseProjectile>().Launch(projectileObject.transform.up * -LaunchForce, Damage);
+    }
+
+    private Vector3 GetMouseWorldPoint()
+    {
+        var mouseScreenPosition = Mouse.current.position;
+        var mouseScreenVector3 = new Vector3(mouseScreenPosition.x.ReadValue(), mouseScreenPosition.y.ReadValue(), 0f);
+        return mouseScreenVector3.ToWorldPoint();
     }
 
     public override void TryDoLightAttack()

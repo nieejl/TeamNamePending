@@ -14,8 +14,6 @@ public class StaffProjectile : BaseProjectile
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        transform.SetParent(collision.transform);
-        Debug.Log(" collided with " + collision.gameObject.name);
         foreach (var nearbyObjects in Physics.OverlapSphere(collision.GetContact(0).point, ExplosionRange)) 
             if (nearbyObjects.gameObject.TryGetComponent<IDamageable>(out var damageable))
             { 
@@ -31,6 +29,7 @@ public class StaffProjectile : BaseProjectile
         base.Stop();
         var mainModule = projectileParticles.main;
         mainModule.loop = false;
+        projectileParticles.Stop();
         impactParticles.Play();
         Invoke(nameof(StopAllParticles), impactParticles.main.duration);
     }
