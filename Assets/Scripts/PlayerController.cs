@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("isMovingParam", IsMoving);
         var currentPosition = transform.position;
         var targetPosition = currentPosition + cameraRelativeDirection;
-        Debug.Log(targetPosition);
         _rigidbody.velocity = cameraRelativeDirection * MovementSpeed;
         
         // transform.Translate(cameraRelativeDirection * (MovementSpeed * deltaTime), Space.World);
