@@ -32,6 +32,17 @@ public class StaffWeapon : BaseWeapon
 
     public override void TryDoHeavyAttack()
     {
+        if (!canBeUsed)
+            return;
+        
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffShootEvent");
+        if (attackCounter + 1 >= AttacksToBreak)
+        {
+            BreakWeapon();
+            return;
+        }
+        attackCounter++;
+        
         var mouseWorldPosition = GetMouseWorldPoint();
         var projectileObject = Instantiate(AlernateProjectilePrefab, null);
 
