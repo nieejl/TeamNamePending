@@ -35,6 +35,7 @@ public class StaffWeapon : BaseWeapon
         if (!canBeUsed)
             return;
         
+        FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffShootEvent");
         if (attackCounter + 1 >= AttacksToBreak)
         {
             BreakWeapon();
