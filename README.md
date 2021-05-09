@@ -24,12 +24,12 @@ Second Attack: Right click
 Exit: Esc
 
 Team:
-Joachim Nyholm, Sound Design
-Katsutoshi, Programmer
-Kristian Hedeholm, Programmer
-Leyli Bunyadzade, Concept Artist
-Niels Ejlersen, Programmer
-Sebastian Mear, 3D Art
-Sheila Stormfeldt, 3D Art & Programmer
-Viktor Granström, Technical Sound Designer and Composer
-Vlad Vana, Programmer
+* Joachim Nyholm, Sound Design
+* Katsutoshi, Programmer
+* Kristian Hedeholm, Programmer
+* Leyli Bunyadzade, Concept Artist
+* Niels Ejlersen, Programmer
+* Sebastian Mear, 3D Art
+* Sheila Stormfeldt, 3D Art & Programmer
+* Viktor Granström, Technical Sound Designer and Composer
+* Vlad Vana, Programmer
