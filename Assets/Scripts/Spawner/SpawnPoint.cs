@@ -16,6 +16,18 @@ public class SpawnPoint : MonoBehaviour
         SpawnQueue = new Queue<(GameObject, EnemyMover.FollowBehaviour)>();
     }
 
+    public void Reset()
+    {
+        IsActive = false;
+        TakesNewSpawnsOrders = true;
+        _spawnNextAfter = 0f;
+        SpawnQueue.Clear();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i), 2f);
+        }
+    }
+
     private void SpawnEnemy(GameObject enemyPrefab, EnemyMover.FollowBehaviour followBehaviour)
     {
         var enemy = Instantiate(enemyPrefab, _spawnPointTransform);
