@@ -27,6 +27,7 @@ public class TitelScreen : MonoBehaviour
     private Slider _musicSlider;
     [SerializeField]
     private Slider _sfxSlider;
+    FMOD.Studio.EventInstance musicEvent;
 
     private void Awake()
     {
@@ -46,6 +47,11 @@ public class TitelScreen : MonoBehaviour
 
         EnableControlsWindow(false);
         EnableOptionWindow(false);
+
+        //FMOD MUSIC START UPON MENU/GAME START
+        musicEvent = FMODUnity.RuntimeManager.CreateInstance("event:/Music/musicEvent");
+        musicEvent.start();
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("musicStateParameter", 0f);
     }
 
     private void ClickedStartGameButton()

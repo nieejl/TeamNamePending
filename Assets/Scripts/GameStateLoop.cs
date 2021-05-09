@@ -13,7 +13,7 @@ public class GameStateLoop : MonoBehaviour
     
     public enum GameState : int
     {
-        OnMenu = 1,
+        OnMenu = 0,
         BeforeTheStorm,
         ItemShopCombat,
         GameOver,
@@ -22,6 +22,7 @@ public class GameStateLoop : MonoBehaviour
 
     private void Awake()
     {
+        StartCombatDelay = 4;
         CurrentGameState = GameState.OnMenu;
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("musicStateParameter", (float)CurrentGameState);
     }
@@ -78,6 +79,7 @@ public class GameStateLoop : MonoBehaviour
     {
         Elapsed = 0f;
         CurrentGameState = newState;
+        Debug.Log(CurrentGameState);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("musicStateParameter", (float)CurrentGameState);
     }
     
