@@ -14,9 +14,12 @@ public class StaffProjectile : BaseProjectile
 
     protected override void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision from base projectile with " + collision.transform.tag);
+
         foreach (var nearbyObjects in Physics.OverlapSphere(collision.GetContact(0).point, ExplosionRange)) 
             if (nearbyObjects.gameObject.TryGetComponent<IDamageable>(out var damageable))
-            { 
+            {
+                Debug.Log("staff projectile dealing " + projectileDamage);
                 damageable.TakeDamage(projectileDamage);
                 FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Staff/staffHitEvent");
             }

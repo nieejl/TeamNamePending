@@ -16,9 +16,11 @@ public class BaseProjectile : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision from base projectile with " + collision.transform.tag);
         transform.SetParent(collision.transform);
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
+            Debug.Log("base projectile dealing " + projectileDamage + " damage");
             damageable.TakeDamage(projectileDamage);
             FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Bow/bowHitEvent");
         }
