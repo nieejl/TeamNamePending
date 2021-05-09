@@ -5197,8 +5197,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3594611162852019242, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: AttacksToBreak
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 3594611162852019242, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
+      propertyPath: ItemDurability
+      value: 
+      objectReference: {fileID: 11400000, guid: af4affe6467dc114e914790f74d3f833, type: 2}
     - target: {fileID: 3594611162852019243, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5247,6 +5251,10 @@ PrefabInstance:
       propertyPath: AttacksToBreak
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 4918562236250764738, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
+      propertyPath: ItemDurability
+      value: 
+      objectReference: {fileID: 11400000, guid: af4affe6467dc114e914790f74d3f833, type: 2}
     - target: {fileID: 4918562236250764739, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5285,8 +5293,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7685030367135720703, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: AttacksToBreak
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 7685030367135720703, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
+      propertyPath: ItemDurability
+      value: 
+      objectReference: {fileID: 11400000, guid: af4affe6467dc114e914790f74d3f833, type: 2}
     - target: {fileID: 8199991200846824178, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_Enabled
       value: 1

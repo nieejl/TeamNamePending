@@ -19,6 +19,7 @@ public class BowWeapon : BaseWeapon
     private void Awake()
     {
         SetupMeshes();
+        AttacksToBreak = ItemDurability.AttacksTillDestroyd;
     }
 
     private void SetupMeshes()

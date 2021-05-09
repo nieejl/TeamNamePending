@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,6 +28,14 @@ public class TitelScreen : MonoBehaviour
     private Slider _musicSlider;
     [SerializeField]
     private Slider _sfxSlider;
+
+    [SerializeField] 
+    private TMP_Text _itemDurabilityText;
+    
+    [SerializeField]
+    private Slider _itemDurabilityLevelSlider;
+
+    [SerializeField] private ItemDurabilityData DurabilityData;
     FMOD.Studio.EventInstance musicEvent;
 
     private void Awake()
@@ -42,6 +51,11 @@ public class TitelScreen : MonoBehaviour
         _sfxSlider.value = 0.7f;
         _musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
         _sfxSlider.onValueChanged.AddListener(ChangeSFXVolume);
+
+        _itemDurabilityLevelSlider.value = 0.25f;
+        DurabilityData.SetValue(25);
+        _itemDurabilityText.text = "Item Durability: 25";
+        _itemDurabilityLevelSlider.onValueChanged.AddListener(ChangeDurabilityLevel);
 
         _exitButton.onClick.AddListener(ClickedExitButton);
 
@@ -62,6 +76,13 @@ public class TitelScreen : MonoBehaviour
     private void ClickedExitButton()
     {
         Application.Quit();
+    }
+
+    private void ChangeDurabilityLevel(float value)
+    {
+        int attacksBeforeBreaking = (int) (value * 100);
+        DurabilityData.SetValue(attacksBeforeBreaking);
+        _itemDurabilityText.text = "Item Durability: " + attacksBeforeBreaking;
     }
 
     private void EnableControlsWindow(bool enable)
