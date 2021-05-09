@@ -44,6 +44,14 @@ public class PendingSystem : MonoBehaviour
         _totalTime = pendingTimeInSeconds;
         _startDateTime = DateTime.Now;
         _updateTime = true;
+        OnUpdateTimer?.Invoke(1.0f, (int)_totalTime);
+    }
+
+    public void ResetPendingTime()
+    {
+        _updateTime = false;
+        _timeCounter = 0.0f;
+        StartPendingTime(_totalTime);
     }
 
     private void UpdateTimer()
