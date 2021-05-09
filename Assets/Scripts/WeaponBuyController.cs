@@ -22,7 +22,6 @@ public class WeaponBuyController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.CompareTag("Player"))
         {
             IsPlayerWithinBuyRange = false;

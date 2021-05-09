@@ -21,6 +21,8 @@ public class UIController : MonoBehaviour
 
     [Header("Timer")]
     [SerializeField]
+    private RectTransform _timerContainer;
+    [SerializeField]
     private Image _timer;
     [SerializeField]
     private TMP_Text _timerText;
@@ -37,6 +39,8 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         PendingSystem.Instance.OnUpdateTimer += UpdateTimer;
+        PendingSystem.Instance.OnPendingTimeDone += () => { EnableTimerContainer(false); };
+        EnableTimerContainer(false);
     }
 
     private void InitializeHealthIcons()
@@ -79,6 +83,12 @@ public class UIController : MonoBehaviour
     {
         _timer.fillAmount = percentage;
         _timerText.text = seconds.ToString();
+        EnableTimerContainer(true);
+    }
+
+    private void EnableTimerContainer(bool enable)
+    {
+        _timerContainer.gameObject.SetActive(enable);
     }
 
 }

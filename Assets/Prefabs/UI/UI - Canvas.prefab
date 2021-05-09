@@ -816,6 +816,7 @@ MonoBehaviour:
   _playerHealthIconPrefab: {fileID: 8261199208027070548, guid: 6862401c97e84834db8a5a501baa66d4, type: 3}
   _playerCoins: {fileID: 11400000, guid: b667cfde387571244b46fb401a3e48f0, type: 2}
   _coinsText: {fileID: 6964363976112625310}
+  _timerContainer: {fileID: 8125500713213125792}
   _timer: {fileID: 6829449045198379152}
   _timerText: {fileID: 1039191107266591471}
 --- !u!114 &7571979271479085688

@@ -6,7 +6,8 @@ public class PendingSystem : MonoBehaviour
 {
     public static PendingSystem Instance { get; private set; }
     public bool IsPending() => _updateTime;
-    public event Action<float, int> OnUpdateTimer; 
+    public event Action<float, int> OnUpdateTimer;
+    public event Action OnPendingTimeDone;
 
     [SerializeField]
     private float _updateFrequencyInSeconds = 1.0f;
@@ -49,18 +50,24 @@ public class PendingSystem : MonoBehaviour
 
     public void ResetPendingTime()
     {
-        _updateTime = false;
-        _timeCounter = 0.0f;
-        StartPendingTime(_totalTime);
+        if(IsPending())
+        {
+            _updateTime = false;
+            _timeCounter = 0.0f;
+            StartPendingTime(_totalTime);
+        }
     }
 
     private void UpdateTimer()
     {
         TimeSpan change = _timeSpanFromStart.Subtract(DateTime.Now - _startDateTime);
-        OnUpdateTimer?.Invoke((float)(change.TotalSeconds / _totalTime), change.Seconds);
-        if(change.Seconds == 0)
+        int seconds = Mathf.RoundToInt((float)change.TotalSeconds);
+        OnUpdateTimer?.Invoke((float)(change.TotalSeconds / _totalTime), seconds);
+
+        if (seconds == 0)
         {
             _updateTime = false;
+            OnPendingTimeDone?.Invoke();
         }
     }
 }
