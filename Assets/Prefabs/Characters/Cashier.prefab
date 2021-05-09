@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1902218468220321596}
   - component: {fileID: 1902218468220321597}
   - component: {fileID: 1902218468220321594}
-  - component: {fileID: 1902218468220321595}
+  - component: {fileID: 2574157844442379419}
   m_Layer: 0
   m_Name: Cashier
   m_TagString: Cashier
@@ -82,8 +82,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1902218468220321595
-BoxCollider:
+--- !u!135 &2574157844442379419
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,5 +93,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
