@@ -4,9 +4,9 @@ using System;
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
 {
-    public int CurrentValue { get; private set; }
-    public int StartAmount { get { return _startAmount; } }
-    public int MaximumAmount { get { return _maximumAmount; } }
+    public int CurrentValue { get => _currentValue; private set => _currentValue = value; }
+    public int StartAmount => _startAmount;
+    public int MaximumAmount => _maximumAmount;
 
     public event Action<int> ChangedToValue;
     public event Action ValueReachedZero;
@@ -41,4 +41,6 @@ public class PlayerData : ScriptableObject
             ChangedToValue?.Invoke(_currentValue);
         }
     }
+    
+    
 }
