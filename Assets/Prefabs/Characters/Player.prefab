@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 5
+  PlayerCoins: {fileID: 11400000, guid: b667cfde387571244b46fb401a3e48f0, type: 2}
   IsMoving: 0
 --- !u!114 &8199991200846824178
 MonoBehaviour:
