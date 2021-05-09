@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
             if (!PendingSystem.Instance.IsPending() && PlayerCoins.CurrentValue >= 10)
             {
                 PlayerCoins.ChangeValue(-10);
-                // TODO Buy-weapon-system: we discussed this timer increasing. Could increase by eg. 2 every time.
                 PendingSystem.Instance.StartPendingTime(60f);
                 inventory.GetEquippedWeapon().RepairWeapon();
             }

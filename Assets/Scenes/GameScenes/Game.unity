@@ -2559,10 +2559,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentGameState: 1
+  Elapsed: 0
   BackToMenuDelay: 10
-  StartCombatDelay: 10
+  StartCombatDelay: 5
   RestartGameDelay: 3
-  TestRestartDelay: 10
   PlayerHealth: {fileID: 11400000, guid: 4e520288e4f8d2941af942753466d05b, type: 2}
   SpawnerState: {fileID: 11400000, guid: 510a06d8e4da43e4f87f6f00030fc6d2, type: 2}
 --- !u!4 &1811704293
