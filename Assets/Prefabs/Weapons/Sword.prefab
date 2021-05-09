@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1257366660}
   - component: {fileID: 1257366661}
   - component: {fileID: 1257366662}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: DamageArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 6851931209149272286}
   - component: {fileID: 6079054161195895397}
   - component: {fileID: 4139792697928858323}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181071d9d2431b148b3e037d8dded41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemyWeapon: 0
   Damage: 10
   AttacksToBreak: 5
 --- !u!95 &4139792697928858323

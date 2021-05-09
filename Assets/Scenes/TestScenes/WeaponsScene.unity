@@ -528,6 +528,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3594611162852019242, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
+      propertyPath: isEnemyWeapon
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3594611162852019243, guid: 0aaf3d9c2b6524a4786277edabdbd6e5, type: 3}
       propertyPath: m_Layer
       value: 7
