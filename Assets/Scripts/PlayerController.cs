@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerData PlayerCoins;
     private Quaternion _cameraRotation;
 
+    private Rigidbody _rigidbody;
     private Inventory inventory;
     [SerializeField] public float IsMoving;
     FMOD.Studio.EventInstance footstepEvent;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
         WireControls();
         _cameraRotation = Camera.main.transform.rotation;
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void WireControls()
@@ -101,7 +103,12 @@ public class PlayerController : MonoBehaviour
         }.normalized;
         var cameraRelativeDirection = movement.ChangeDirectionRelativeToCamera(Camera.main.transform);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("isMovingParam", IsMoving);
-        transform.Translate(cameraRelativeDirection * (MovementSpeed * deltaTime), Space.World);
+        var currentPosition = transform.position;
+        var targetPosition = currentPosition + cameraRelativeDirection;
+        Debug.Log(targetPosition);
+        _rigidbody.velocity = cameraRelativeDirection * MovementSpeed;
+        
+        // transform.Translate(cameraRelativeDirection * (MovementSpeed * deltaTime), Space.World);
     }
 
     public void UpdatePlayerDirection()
