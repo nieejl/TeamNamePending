@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateLoop : MonoBehaviour
 {
-    public static GameState CurrentGameState;
+    public GameState CurrentGameState;
     public static float Elapsed;
     public float BackToMenuDelay;
-    public float StartSpawninngDelay;
+    public float StartCombatDelay;
+    public float RestartGameDelay;
+    public float TestRestartDelay;
     [SerializeField] private PlayerData PlayerHealth;
     [SerializeField] private EventTriggerData SpawnerState;
     
@@ -43,40 +43,46 @@ public class GameStateLoop : MonoBehaviour
                 SetGameState(GameState.BeforeTheStorm);
                 break;
             case GameState.BeforeTheStorm:
-                if (Elapsed >= StartSpawninngDelay)
+                if (Elapsed >= StartCombatDelay)
                 {
                     SetGameState(GameState.ItemShopCombat);
                     SpawnerState.IsActive = true;
                 }
                 break;
             case GameState.ItemShopCombat:
-                if (PlayerHealth.CurrentValue <= 0f)
+                if (PlayerHealth.CurrentValue <= 0)
                 {
                     SetGameState(GameState.GameOver);
                 }
                 break;
             case GameState.GameOver:
                 // show score / high score
-                
+                SpawnerState.IsActive = false;
                 if (Elapsed >= BackToMenuDelay)
                 {
                     SetGameState(GameState.OnMenu);
                 }
-                
+                break;
+            case GameState.Restart:
+                if (Elapsed >= RestartGameDelay)
+                {
+                    SetGameState(GameState.BeforeTheStorm);
+                    SceneManager.LoadScene("Game");
+                }
                 break;
             default:
                 return;
         }
     }
 
-    public static void SetGameState(GameState newState)
+    public void SetGameState(GameState newState)
     {
         Elapsed = 0f;
         CurrentGameState = newState;
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("musicStateParameter", (float)CurrentGameState);
     }
     
-    public static void OnGameStarted()
+    public void OnGameStarted()
     {
         CurrentGameState = GameState.BeforeTheStorm;
     }

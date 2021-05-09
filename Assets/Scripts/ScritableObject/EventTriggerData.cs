@@ -4,19 +4,16 @@ using System;
 public class EventTriggerData : ScriptableObject
 {
     public bool IsActive { get => isActive; set => isActive = value; }
-    public bool ShouldReset { get => _shouldReset; set => _shouldReset = value; }
-
-    public event Action<int> ChangedToValue;
-    public event Action ValueReachedZero;
+    public bool ShouldReset { get => shouldReset; set => shouldReset = value; }
 
     [SerializeField]
     private bool isActive;
     [SerializeField]
-    private bool _shouldReset;
+    private bool shouldReset;
 
     private void OnEnable()
     {
         isActive = false;
-        _shouldReset = false;
+        shouldReset = false;
     }
 }

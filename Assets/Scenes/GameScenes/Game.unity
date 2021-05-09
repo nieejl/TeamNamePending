@@ -2343,6 +2343,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4792812432662874588, guid: 51ede7b3dd92bf9488f9d95bf5a258c0, type: 3}
+      propertyPath: SpawnerState
+      value: 
+      objectReference: {fileID: 11400000, guid: 510a06d8e4da43e4f87f6f00030fc6d2, type: 2}
+    - target: {fileID: 4792812432662874588, guid: 51ede7b3dd92bf9488f9d95bf5a258c0, type: 3}
       propertyPath: SpawnInterval
       value: 4
       objectReference: {fileID: 0}
@@ -2554,8 +2558,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55194d6a7dde41afaaa78514ab6f8083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentGameState: 1
   BackToMenuDelay: 10
-  StartSpawninngDelay: 12
+  StartCombatDelay: 10
+  RestartGameDelay: 3
+  TestRestartDelay: 10
   PlayerHealth: {fileID: 11400000, guid: 4e520288e4f8d2941af942753466d05b, type: 2}
   SpawnerState: {fileID: 11400000, guid: 510a06d8e4da43e4f87f6f00030fc6d2, type: 2}
 --- !u!4 &1811704293

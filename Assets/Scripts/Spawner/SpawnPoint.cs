@@ -22,6 +22,8 @@ public class SpawnPoint : MonoBehaviour
         TakesNewSpawnsOrders = true;
         _spawnNextAfter = 0f;
         SpawnQueue.Clear();
+        
+        // killing off any enemies alive.
         for (int i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i), 2f);
