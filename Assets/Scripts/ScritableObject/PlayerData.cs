@@ -41,4 +41,6 @@ public class PlayerData : ScriptableObject
             ChangedToValue?.Invoke(_currentValue);
         }
     }
+    
+    
 }

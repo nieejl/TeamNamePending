@@ -4,11 +4,10 @@ using UnityEngine.SceneManagement;
 public class GameStateLoop : MonoBehaviour
 {
     public GameState CurrentGameState;
-    public static float Elapsed;
+    public float Elapsed;
     public float BackToMenuDelay;
     public float StartCombatDelay;
     public float RestartGameDelay;
-    public float TestRestartDelay;
     [SerializeField] private PlayerData PlayerHealth;
     [SerializeField] private EventTriggerData SpawnerState;
     
@@ -66,7 +65,7 @@ public class GameStateLoop : MonoBehaviour
             case GameState.Restart:
                 if (Elapsed >= RestartGameDelay)
                 {
-                    SetGameState(GameState.BeforeTheStorm);
+                    PlayerHealth.ChangeValue(PlayerHealth.StartAmount - PlayerHealth.CurrentValue);
                     SceneManager.LoadScene("Game");
                 }
                 break;

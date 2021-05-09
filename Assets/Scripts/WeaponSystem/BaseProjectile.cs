@@ -20,6 +20,7 @@ public class BaseProjectile : MonoBehaviour
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(projectileDamage);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/VFX/Weapons/Bow/bowHitEvent");
         }
         Stop();
     }
